@@ -38,7 +38,7 @@ describe('/api/v1/deck', () => {
                 .query({ numCards: 1 });
             expect(res).to.have.status(200);
             expect(res).to.satisfyApiSpec;
-            expect(res.body).to.deep.equal(['CA']);
+            expect(res.body).to.have.lengthOf(1);
         });
         it('returns status 200 and 2 cards when request asks for 2 cards', async () => {
             const res = await chai.request(app)
@@ -46,7 +46,7 @@ describe('/api/v1/deck', () => {
                 .query({ numCards: 2 });
             expect(res).to.have.status(200);
             expect(res).to.satisfyApiSpec;
-            expect(res.body).to.deep.equal(['CA', 'CK']);
+            expect(res.body).to.have.lengthOf(2);
         });
         it('returns status 400 and an error message when request asks for more than 52 cards', async () => {
             const res = await chai.request(app)
@@ -75,6 +75,35 @@ describe('/api/v1/deck', () => {
             expect(res).to.have.status(200);
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.deep.equal(['CA', 'CK']);
+        });
+    });
+    describe('POST /shuffle', () => {
+        it('returns status 204', async () => {
+            const res = await chai.request(app).post('/api/v1/deck/shuffle');
+            expect(res).to.have.status(204);
+        });
+        it('shuffles the deck', async () => {
+            // gets the deck once
+            const resToFirstGet = await chai.request(app)
+                .get('/api/v1/deck')
+                .query({ numCards: 52 });
+            expect(resToFirstGet).to.have.status(200);
+            expect(resToFirstGet.body).to.have.members(fullDeck);
+
+            // shuffles the deck
+            const resToShuffle = await chai.request(app)
+                .post('/api/v1/deck/shuffle');
+            expect(resToShuffle).to.have.status(204);
+
+            // gets the deck a second time
+            const resToSecondGet = await chai.request(app)
+                .get('/api/v1/deck')
+                .query({ numCards: 52 });
+            expect(resToSecondGet).to.have.status(200);
+            expect(resToSecondGet.body).to.have.members(fullDeck);
+
+            // the first and second decks received should be different
+            expect(resToSecondGet.body).to.not.deep.equal(resToFirstGet.body);
         });
     });
 });

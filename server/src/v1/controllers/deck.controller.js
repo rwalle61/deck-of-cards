@@ -11,6 +11,12 @@ const getCards = (req, res, next) => {
     }
 };
 
+const shuffle = (req, res, next) => {
+    deckService.shuffle();
+    res.sendStatus(204);
+};
+
 module.exports = {
     getCards,
+    shuffle,
 };

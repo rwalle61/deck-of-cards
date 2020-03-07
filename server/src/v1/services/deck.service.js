@@ -1,3 +1,5 @@
+const shuffleArray = require('shuffle-array');
+
 const deck = [
     'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',
     'SA', 'SK', 'SQ', 'SJ', 'S10', 'S9', 'S8', 'S7', 'S6', 'S5', 'S4', 'S3', 'S2',
@@ -15,6 +17,11 @@ const getCards = (numCards) => {
     return cards;
 };
 
+const shuffle = () => {
+    shuffleArray(deck);
+};
+
 module.exports = {
     getCards,
+    shuffle,
 };

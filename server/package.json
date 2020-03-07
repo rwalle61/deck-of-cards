@@ -54,6 +54,7 @@
     "js-yaml": "^3.13.1",
     "log4js": "^6.1.2",
     "path": "^0.12.7",
+    "shuffle-array": "^1.0.1",
     "sinon": "^9.0.0",
     "sinon-chai": "^3.5.0",
     "sinon-express-mock": "^2.2.1"

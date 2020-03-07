@@ -9,7 +9,7 @@ paths:
       summary: Get a list of cards from the deck
       responses:
         200:
-          description: Response successful
+          description: Ok
           content:
             application/json:
               schema:
@@ -22,6 +22,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorInfo'
+  /api/v1/deck/shuffle:
+    post:
+      summary: Shuffle the cards in the deck
+      responses:
+        204:
+          description: Ok
 components:
   schemas:
     Card:
