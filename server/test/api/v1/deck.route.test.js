@@ -84,26 +84,26 @@ describe('/api/v1/deck', () => {
         });
         it('shuffles the deck', async () => {
             // gets the deck once
-            const resToFirstGet = await chai.request(app)
+            const resfromFirstGet = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 52 });
-            expect(resToFirstGet).to.have.status(200);
-            expect(resToFirstGet.body).to.have.members(fullDeck);
+            expect(resfromFirstGet).to.have.status(200);
+            expect(resfromFirstGet.body).to.have.members(fullDeck);
 
             // shuffles the deck
-            const resToShuffle = await chai.request(app)
+            const resfromPost = await chai.request(app)
                 .post('/api/v1/deck/shuffle');
-            expect(resToShuffle).to.have.status(204);
+            expect(resfromPost).to.have.status(204);
 
             // gets the deck a second time
-            const resToSecondGet = await chai.request(app)
+            const resfromSecondGet = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 52 });
-            expect(resToSecondGet).to.have.status(200);
-            expect(resToSecondGet.body).to.have.members(fullDeck);
+            expect(resfromSecondGet).to.have.status(200);
+            expect(resfromSecondGet.body).to.have.members(fullDeck);
 
             // the first and second decks received should be different
-            expect(resToSecondGet.body).to.not.deep.equal(resToFirstGet.body);
+            expect(resfromSecondGet.body).to.not.deep.equal(resfromFirstGet.body);
         });
     });
 });
