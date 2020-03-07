@@ -24,7 +24,7 @@ describe('/api/v1/deck', () => {
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.deep.equal([]);
         });
-        it('returns status 200 and 1 card when request asks for 0 cards', async () => {
+        it('returns status 200 and 1 card when request wants 0 cards', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 0 });
@@ -32,7 +32,7 @@ describe('/api/v1/deck', () => {
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.deep.equal([]);
         });
-        it('returns status 200 and 1 card when request asks for 1 card', async () => {
+        it('returns status 200 and 1 card when request wants 1 card', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 1 });
@@ -40,7 +40,7 @@ describe('/api/v1/deck', () => {
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.have.lengthOf(1);
         });
-        it('returns status 200 and 2 cards when request asks for 2 cards', async () => {
+        it('returns status 200 and 2 cards when request wants 2 cards', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 2 });
@@ -48,7 +48,7 @@ describe('/api/v1/deck', () => {
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.have.lengthOf(2);
         });
-        it('returns status 400 and an error message when request asks for more than 52 cards', async () => {
+        it('returns status 400 and an error message when request wants more than 52 cards', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 53 });
@@ -56,7 +56,7 @@ describe('/api/v1/deck', () => {
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.deep.equal({ error: `There aren't 53 cards left in the deck` });
         });
-        it('returns status 200 and 52 cards when request asks for 52 cards', async () => {
+        it('returns status 200 and 52 cards when request wants 52 cards', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({ numCards: 52 });
@@ -65,7 +65,7 @@ describe('/api/v1/deck', () => {
             expect(res.body).to.have.lengthOf(52);
             expect(res.body).to.have.members(fullDeck);
         });
-        it('returns status 200 and 2 sorted cards when request asks for 2 sorted cards', async () => {
+        it('returns status 200 and 2 sorted cards when request wants 2 sorted cards', async () => {
             const res = await chai.request(app)
                 .get('/api/v1/deck')
                 .query({
@@ -75,6 +75,29 @@ describe('/api/v1/deck', () => {
             expect(res).to.have.status(200);
             expect(res).to.satisfyApiSpec;
             expect(res.body).to.deep.equal(['CA', 'CK']);
+        });
+        it('returns status 400 and an error message when request wants more cards than remain after drawing some cards', async () => {
+            const res = await chai.request(app)
+                .get('/api/v1/deck')
+                .query({
+                    numCards: 1,
+                    drawnCards: fullDeck,
+                });
+            expect(res).to.have.status(400);
+            expect(res).to.satisfyApiSpec;
+            expect(res.body).to.deep.equal({ error: `There aren't 1 cards left in the deck` });
+        });
+        it('returns status 200 and only cards that haven\'t been drawn yet', async () => {
+            const res = await chai.request(app)
+                .get('/api/v1/deck')
+                .query({
+                    numCards: 51,
+                    drawnCards: ['CQ'],
+                });
+            expect(res).to.have.status(200);
+            expect(res).to.satisfyApiSpec;
+            expect(res.body).to.have.lengthOf(51);
+            expect(res.body).to.not.include('CQ');
         });
     });
     describe('POST /shuffle', () => {

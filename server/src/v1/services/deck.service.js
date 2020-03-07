@@ -7,13 +7,16 @@ const deck = [
     'DA', 'DK', 'DQ', 'DJ', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2',
 ];
 
-const getCards = (numCards) => {
-    if (numCards > deck.length) {
+const getCards = (numCards, drawnCards = []) => {
+    if (!numCards) {
+        return [];
+    }
+    const cards = deck
+        .filter((card) => !drawnCards.includes(card))
+        .slice(0, numCards);
+    if (numCards > cards.length) {
         throw new Error(`There aren't ${numCards} cards left in the deck`);
     }
-    const cards = numCards
-        ? deck.slice(0, numCards)
-        : [];
     return cards;
 };
 
