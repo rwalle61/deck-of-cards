@@ -1,0 +1,6 @@
+applications:
+  - name: sampleapp
+    routes:
+      - route: sampleapp.eu-gb.cf.appdomain.cloud
+    memory: 128M
+    timeout: 180

@@ -1,0 +1,40 @@
+{
+  "name": "node-react-starter-app",
+  "version": "0.1.0",
+  "description": "Sample app",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "(cd server && npm install) && (cd client && npm install)",
+    "start": "(cd server && npm start)",
+    "start:dev": "concurrently --kill-others-on-fail \"cd server && npm run nodemon\" \"cd client && npm start\"",
+    "test": "(cd server && npm test) && (cd client && npm test)",
+    "test:full": "(npm run test:components && npm run test:integration)",
+    "test:components": "(cd server && npm run test:full) && (cd client && npm run test:full)",
+    "test:integration": "npm run build && npm start & (wait-on http://localhost:9100 && npm run cypress:run)",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open",
+    "build": "(cd client && npm run build)",
+    "deploy:cloud": "REACT_APP_SERVER_LOCATION=cloud npm run build && ibmcloud dev deploy",
+    "deploy:local": "REACT_APP_SERVER_LOCATION=local npm run build && npm start",
+    "deploy:local-network": "REACT_APP_SERVER_LOCATION=local-network npm run build && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rwalle61/nodeReactStarterApp.git"
+  },
+  "keywords": [],
+  "author": "rwalle61 <richard.lh.waller@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "cypress": "^4.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-chai-friendly": "^0.5.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-mocha": "^6.3.0",
+    "wait-on": "^4.0.1"
+  },
+  "dependencies": {}
+}
