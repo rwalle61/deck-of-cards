@@ -6,9 +6,9 @@ const { expect } = chai;
 
 describe('deck.service.js', () => {
     describe('getCards()', () => {
-        it('returns undefined', () => {
+        it('returns an array', () => {
             const output = deckService.getCards();
-            expect(output).to.be.undefined;
+            expect(output).to.be.an('array');
         });
     });
 });

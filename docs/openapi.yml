@@ -10,3 +10,21 @@ paths:
       responses:
         200:
           description: Response successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Card'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+components:
+  schemas:
+    Card:
+      type: string
+    ErrorInfo:
+      type: object
