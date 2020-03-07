@@ -1,27 +1,12 @@
 openapi: 3.0.0
 info:
-  title: API spec
-  description: API spec
+  title: Deck of Cards server API
+  description: API spec for Deck of Cards app
   version: 0.1.0
 paths:
-  /api/v1/persons:
+  /api/v1/deck:
     get:
-      summary: List all persons
+      summary: Get a list of cards from the deck
       responses:
         200:
           description: Response successful
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Person'
-components:
-  schemas:
-    Person:
-      type: object
-      required:
-        - name
-      properties:
-        name:
-          type: string
