@@ -9,7 +9,7 @@
     "test:coverage": "nyc npm test && nyc report --reporter=html && nyc check-coverage --statements 80 --branches 80 --functions 60 --lines 80",
     "test:coverage:browse": "npm run test:coverage; open coverage/index.html",
     "test:mutate": "stryker run",
-    "test:full": "npm run lint && npm run test:coverage && npm run test:mutate",
+    "test:full": "npm run lint && npm run test:coverage",
     "lint": "eslint .",
     "nodemon": "nodemon src/app.js",
     "debug": "node --inspect src/app.js"
