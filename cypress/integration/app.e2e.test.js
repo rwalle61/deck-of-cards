@@ -111,29 +111,17 @@ describe('e2e app test', () => {
             .should('have.length', 52)
             .then(childrenShouldContainOnlyUniqueCards);
     });
-    it('sorts your hand of 1 when clicking the sort button', () => {
+    it('sorts your hand if you click the sort button (after drawing cards from a shuffled deck)', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
 
-        cy.get('.Draw-btn').click();
+        cy.get('.Shuffle-btn').click();
 
-        cy.get('.Cards-in-hand').children()
-            .should('have.length', 1)
-            .then(childrenShouldContainOnlyUniqueCards);
-
-        cy.get('.Sort-btn').click();
-        cy.get('.Cards-in-hand').children()
-            .then(childrenShouldBeSorted);
-    });
-    it('sorts your hand of 5 when clicking the sort button', () => {
-        cy.get('.Cards-in-hand').children()
-            .should('have.length', 0);
-
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 3; i++) {
             cy.get('.Draw-btn').click();
         }
         cy.get('.Cards-in-hand').children()
-            .should('have.length', 5)
+            .should('have.length', 3)
             .then(childrenShouldContainOnlyUniqueCards);
 
         cy.get('.Sort-btn').click();

@@ -31,6 +31,7 @@ const Deck = (props) => ([
   <Button
     className="Sort-btn"
     variant="secondary"
+    onClick={props.onSort}
     >
     Sort hand
   </Button>,
@@ -40,6 +41,16 @@ const shuffleDeck = (deck) => {
   const shuffledDeck = [...deck];
   shuffleArray(shuffledDeck);
   return shuffledDeck;
+};
+
+const sortHand = (hand, sortedDeck) => {
+  const sortedHand = [];
+  sortedDeck.forEach((card) => {
+    if (hand.includes(card)) {
+      sortedHand.push(card);
+    }
+  });
+  return sortedHand;
 };
 
 const Hand = (props) => (
@@ -55,6 +66,7 @@ const Hand = (props) => (
 
 const App = () => {
   const [deck, setDeck] = useState([]);
+  const [sortedDeck, setSortedDeck] = useState([]);
   const [hand, setHand] = useState([]);
 
   useEffect(() => {
@@ -62,6 +74,7 @@ const App = () => {
       try {
         const initialDeck = await getDeck();
         setDeck(initialDeck);
+        setSortedDeck(initialDeck);
       } catch (err) {
         console.log(err);
       }
@@ -82,6 +95,11 @@ const App = () => {
     const shuffledDeck = shuffleDeck(deck);
     setDeck(shuffledDeck);
   };
+
+  const onSort = async() => {
+    const sortedHand = sortHand(hand, sortedDeck);
+    setHand(sortedHand);
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -91,6 +109,7 @@ const App = () => {
         <Deck
           onDraw={onDraw}
           onShuffle={onShuffle}
+          onSort={onSort}
           />
         <Hand hand={hand} />
       </header>
