@@ -15,6 +15,13 @@ const getDeck = async () => {
 const Deck = (props) => ([
   <img src={logo} className="Deck" alt="deck"/>,
   <Button
+    className="Shuffle-btn"
+    variant="secondary"
+    onClick={props.onShuffle}
+    >
+    Shuffle deck
+  </Button>,
+  <Button
     className="Draw-btn"
     variant="primary"
     onClick={props.onDraw}
@@ -27,13 +34,6 @@ const Deck = (props) => ([
     >
     Sort hand
   </Button>,
-  <Button
-    className="Shuffle-btn"
-    variant="secondary"
-    onClick={props.onShuffle}
-    >
-    Shuffle deck
-  </Button>
 ]);
 
 const shuffleDeck = (deck) => {
