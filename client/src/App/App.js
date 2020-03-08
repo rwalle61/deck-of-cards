@@ -30,6 +30,9 @@ const App = () => {
   }
 
   const onDraw = async() => {
+    if (deck.length < 1) {
+      return;
+    }
     const { card, newDeck } = drawCard();
     const newHand = hand.concat([card]);
     setHand(newHand);
