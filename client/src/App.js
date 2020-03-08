@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import shuffleArray from 'shuffle-array';
 import Button from 'react-bootstrap/Button';
 import logo from './logo.svg';
 import './App.css';
@@ -25,8 +26,21 @@ const Deck = (props) => ([
     variant="secondary"
     >
     Sort hand
+  </Button>,
+  <Button
+    className="Shuffle-btn"
+    variant="secondary"
+    onClick={props.onShuffle}
+    >
+    Shuffle deck
   </Button>
 ]);
+
+const shuffleDeck = (deck) => {
+  const shuffledDeck = [...deck];
+  shuffleArray(shuffledDeck);
+  return shuffledDeck;
+};
 
 const Hand = (props) => (
   <div className="Hand">
@@ -63,6 +77,11 @@ const App = () => {
     const cards = drawCard();
     setHand(cards);
   };
+
+  const onShuffle = async() => {
+    const shuffledDeck = shuffleDeck(deck);
+    setDeck(shuffledDeck);
+  };
   return (
     <div className="App">
       <header className="App-header">
@@ -71,6 +90,7 @@ const App = () => {
         </p>
         <Deck
           onDraw={onDraw}
+          onShuffle={onShuffle}
           />
         <Hand hand={hand} />
       </header>

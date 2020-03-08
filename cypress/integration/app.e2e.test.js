@@ -49,6 +49,9 @@ describe('e2e app test', () => {
             .contains('Deck of Cards');
         cy.get('.Deck')
             .should('exist');
+        cy.get('.Shuffle-btn')
+            .should('exist')
+            .should('contain', 'Shuffle deck');
         cy.get('.Draw-btn')
             .should('exist')
             .should('contain', 'Draw card');
@@ -137,5 +140,33 @@ describe('e2e app test', () => {
         cy.get('.Sort-btn').click();
         cy.get('.Cards-in-hand').children()
             .then(childrenShouldBeSorted);
+    });
+    it('adds sorted cards to your hand when you draw cards before shuffling the deck', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        for (let i = 0; i < 5; i++) {
+            cy.get('.Draw-btn').click();
+        }
+
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 5)
+            .then(childrenShouldContainOnlyUniqueCards)
+            .then(childrenShouldBeSorted);
+    });
+    it('adds shuffled cards to your hand when you draw cards after shuffling the deck', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        cy.get('.Shuffle-btn').click();
+
+        for (let i = 0; i < 5; i++) {
+            cy.get('.Draw-btn').click();
+        }
+
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 5)
+            .then(childrenShouldContainOnlyUniqueCards)
+            .then(childrenShouldNotBeSorted);
     });
 });
