@@ -1,18 +1,18 @@
 const regExpForValidCard = /[CSHD][AKQJ0-9]{1,2}/;
 
-const checkElementsAreValidCards = (elsText) => {
-    elsText.forEach((card) => {
-        expect(card).to.match(regExpForValidCard);
+const checkElementsAreValidCards = (elements) => {
+    elements.forEach((card) => {
+        expect(card).to.match(regExpForValidCard, 'not all elements are valid cards');
     });
 };
 
 const checkElementsAreUnique = (elements) => {
     const uniqueElements = [...(new Set(elements))];
-    expect(elements.length).to.equal(uniqueElements.length);
+    expect(elements.length).to.equal(uniqueElements.length, 'not all elements are unique');
 };
 
-const shouldContainOnlyUniqueCards = ($els) => {
-    const cards = $els.toArray().map((el) => el.innerText);
+const childrenShouldContainOnlyUniqueCards = (children) => {
+    const cards = children.toArray().map((el) => el.id);
     checkElementsAreValidCards(cards);
     checkElementsAreUnique(cards);
 };
@@ -24,15 +24,18 @@ const orderedDeck = [
     'DA', 'DK', 'DQ', 'DJ', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2',
 ];
 
-const shouldBeOrderedCorrectly = ($els) => {
+const childrenShouldBeSorted = (children) => {
+    const cards = children.toArray().map((el) => el.id);
+    const cardIndexes = cards.map((card) => orderedDeck.indexOf(card));
+    const sortedCardsIndexes = [...cardIndexes].sort((a, b) => a - b);
+    expect(cardIndexes).to.deep.equal(sortedCardsIndexes);
+};
+
+const childrenShouldNotBeSorted = ($els) => {
     const cards = $els.toArray().map((el) => el.innerText);
-    const sortedCards = [];
-    orderedDeck.forEach((card) => {
-        if (cards.includes(card)) {
-            sortedCards.push(card);
-        }
-    });
-    expect(cards).to.deep.equal(sortedCards);
+    const cardIndexes = cards.map((card) => orderedDeck.indexOf(card));
+    const sortedCardsIndexes = [...cardIndexes].sort((a, b) => a - b);
+    expect(cardIndexes).to.not.deep.equal(sortedCardsIndexes);
 };
 
 describe('e2e app test', () => {
@@ -67,7 +70,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 1)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
     });
     it('adds 2 (unique) cards to your hand when clicking the \'draw\' button twice', () => {
         cy.get('.Cards-in-hand').children()
@@ -79,7 +82,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 2)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
     });
     it('adds 52 (unique) cards to your hand when clicking the \'draw\' button 52 times', () => {
         cy.get('.Cards-in-hand').children()
@@ -91,7 +94,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 52)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
     });
     it('adds no more cards to your hand when you already have 52 cards', () => {
         cy.get('.Cards-in-hand').children()
@@ -103,7 +106,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 52)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
     });
     it('sorts your hand of 1 when clicking the sort button', () => {
         cy.get('.Cards-in-hand').children()
@@ -113,11 +116,11 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 1)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
 
         cy.get('.Sort-btn').click();
         cy.get('.Cards-in-hand').children()
-            .each(shouldBeOrderedCorrectly);
+            .then(childrenShouldBeSorted);
     });
     it('sorts your hand of 5 when clicking the sort button', () => {
         cy.get('.Cards-in-hand').children()
@@ -129,10 +132,10 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 5)
-            .each(shouldContainOnlyUniqueCards);
+            .then(childrenShouldContainOnlyUniqueCards);
 
         cy.get('.Sort-btn').click();
         cy.get('.Cards-in-hand').children()
-            .each(shouldBeOrderedCorrectly);
+            .then(childrenShouldBeSorted);
     });
 });
