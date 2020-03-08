@@ -51,7 +51,7 @@ describe('e2e app test', () => {
             .should('contain', 'Draw card');
         cy.get('.Hand')
             .should('exist')
-            .contains('Your hand');
+            .should('contain', 'Your hand');
         cy.get('.Sort-btn')
             .should('exist')
             .should('contain', 'Sort hand');
