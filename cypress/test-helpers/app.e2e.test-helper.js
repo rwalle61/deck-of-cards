@@ -32,7 +32,7 @@ const childrenShouldBeSorted = (children) => {
 };
 
 const childrenShouldNotBeSorted = ($els) => {
-    const cards = $els.toArray().map((el) => el.innerText);
+    const cards = $els.toArray().map((el) => el.id);
     const cardIndexes = cards.map((card) => sortedDeck.indexOf(card));
     const sortedCardsIndexes = [...cardIndexes].sort((a, b) => a - b);
     expect(cardIndexes).to.not.deep.equal(sortedCardsIndexes, 'cards are sorted but should not be sorted');

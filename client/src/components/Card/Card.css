@@ -1,0 +1,42 @@
+.card {
+    display: flex;
+    width: 48px;
+    height: 80px;
+    background-color: #FFF;
+    border-radius: 8px;
+    border: 1px solid white;
+    margin: 16px;
+    padding: 4px;
+    text-align: left;
+  }
+
+  .card-black {
+    color: black;
+  }
+
+  .card-red {
+    color: red;
+  }
+
+  .card-value {
+    font-size: 16px;
+  }
+
+  .card-suit {
+    font-size: 8px;
+  }
+
+  .card-topleft {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+  }
+
+  .card-bottomright {
+    display: flex;
+    flex-grow: 1;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    transform:rotate(-180deg);
+  }

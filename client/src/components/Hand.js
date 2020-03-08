@@ -1,14 +1,16 @@
 import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Card from './Card';
 
 const Hand = (props) => (
-  <div className="Hand">
+  <Container className="Hand">
     <p>Your hand</p>
-    <div className="Cards-in-hand">
+    <Container className="Cards-in-hand">
       {props.hand.map(card => (
-        <p className="Card" id={card}>{card}</p>
+        <Card id={card} />
       ))}
-    </div>
-  </div>
+    </Container>
+  </Container>
 );
 
 const sortHand = (hand, sortedDeck) => {

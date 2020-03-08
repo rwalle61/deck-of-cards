@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
 import logo from '../logo.svg';
 import shuffleArray from 'shuffle-array';
 
@@ -9,8 +10,8 @@ const shuffleDeck = (deck) => {
   return shuffledDeck;
 };
 
-const Deck = (props) => (<div>
-  <img src={logo} className="Deck" alt="deck" />,
+const Deck = (props) => (<Container>
+  <div><img src={logo} className="Deck" alt="deck" /></div>
   <Button
     className="Shuffle-btn"
     variant="secondary"
@@ -32,7 +33,7 @@ const Deck = (props) => (<div>
     >
     Sort hand
   </Button>
-</div>);
+</Container>);
 
 export {
   Deck,
