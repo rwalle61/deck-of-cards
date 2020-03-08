@@ -1,16 +1,21 @@
 const regExpForValidCard = /[CSHD][AKQJ0-9]{1,2}/;
 
-const containOnlyUniqueCards = ($els) => {
-    const elsText = $els.toArray().map((el) => el.innerText);
-
+const checkElementsAreValidCards = (elsText) => {
     elsText.forEach((card) => {
         expect(card).to.match(regExpForValidCard);
     });
-
-    const uniqueCards = [...(new Set(elsText))];
-    expect(elsText.length).to.equal(uniqueCards.length);
 };
 
+const checkElementsAreUnique = (elements) => {
+    const uniqueElements = [...(new Set(elements))];
+    expect(elements.length).to.equal(uniqueElements.length);
+};
+
+const shouldContainOnlyUniqueCards = ($els) => {
+    const cards = $els.toArray().map((el) => el.innerText);
+    checkElementsAreValidCards(cards);
+    checkElementsAreUnique(cards);
+};
 describe('e2e app test', () => {
     beforeEach(() => {
         cy.visit('/');
@@ -23,7 +28,8 @@ describe('e2e app test', () => {
         cy.get('.Deck')
             .should('exist');
         cy.get('.Draw-btn')
-            .should('exist');
+            .should('exist')
+            .should('contain', 'Draw card');
         cy.get('.Hand')
             .should('exist')
             .contains('Your hand');
@@ -39,7 +45,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 1)
-            .each(containOnlyUniqueCards);
+            .each(shouldContainOnlyUniqueCards);
     });
     it('adds 2 (unique) cards to your hand when clicking the \'draw\' button twice', () => {
         cy.get('.Cards-in-hand').children()
@@ -51,7 +57,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 2)
-            .each(containOnlyUniqueCards);
+            .each(shouldContainOnlyUniqueCards);
     });
     it('adds 52 (unique) cards to your hand when clicking the \'draw\' button 52 times', () => {
         cy.get('.Cards-in-hand').children()
@@ -63,7 +69,7 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 52)
-            .each(containOnlyUniqueCards);
+            .each(shouldContainOnlyUniqueCards);
     });
     it('adds no more cards to your hand when you already have 52 cards', () => {
         cy.get('.Cards-in-hand').children()
@@ -75,6 +81,6 @@ describe('e2e app test', () => {
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 52)
-            .each(containOnlyUniqueCards);
+            .each(shouldContainOnlyUniqueCards);
     });
 });
