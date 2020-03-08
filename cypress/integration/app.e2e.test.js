@@ -105,6 +105,31 @@ describe('e2e app test', () => {
             .then(childrenShouldContainOnlyUniqueCards)
             .then(childrenShouldNotBeSorted);
     });
+    it('does not shuffle your hand when you shuffle the deck and draw a card', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        for (let i = 0; i < 5; i++) {
+            cy.get('.Draw-btn').click();
+        }
+
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 5)
+            .then(childrenShouldContainOnlyUniqueCards)
+            .then((children) => {
+                childrenShouldBeSorted(children);
+                const originalHand = children.toArray().map((el) => el.id);
+
+                cy.get('.Shuffle-btn').click();
+                cy.get('.Draw-btn').click();
+                cy.get('.Cards-in-hand').children()
+                    .should('have.length', 6)
+                    .then((newChildren) => {
+                        const newHand = newChildren.toArray().map((el) => el.id);
+                        expect(newHand.slice(0, 5)).to.deep.equal(originalHand);
+                    });
+            });
+    });
     it('sorts your hand if you click the sort button (after drawing cards from a shuffled deck)', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);

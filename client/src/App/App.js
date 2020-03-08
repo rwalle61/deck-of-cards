@@ -23,9 +23,17 @@ const App = () => {
     getInitialDeck();
   }, []);
 
+  const drawCard = () => {
+    const card = deck[0];
+    const newDeck = deck.slice(1);
+    return { card, newDeck };
+  }
+
   const onDraw = async() => {
-    const newHand = deck.slice(0, hand.length + 1);
+    const { card, newDeck } = drawCard();
+    const newHand = hand.concat([card]);
     setHand(newHand);
+    setDeck(newDeck);
   };
 
   const onShuffle = async() => {
