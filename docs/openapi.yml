@@ -6,7 +6,7 @@ info:
 paths:
   /api/v1/deck:
     get:
-      summary: Get a list of cards from the deck
+      summary: Get the starting deck
       responses:
         200:
           description: Ok
@@ -16,21 +16,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Card'
-        400:
-          description: Bad request
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorInfo'
-  /api/v1/deck/shuffle:
-    post:
-      summary: Shuffle the cards in the deck
-      responses:
-        204:
-          description: Ok
 components:
   schemas:
     Card:
       type: string
-    ErrorInfo:
-      type: object

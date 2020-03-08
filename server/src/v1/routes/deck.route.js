@@ -4,7 +4,6 @@ const deckController = require('../controllers/deck.controller');
 
 const router = express.Router();
 
-router.get('/', deckController.getCards);
-router.post('/shuffle', deckController.shuffle);
+router.get('/', deckController.getDeck);
 
 module.exports = router;

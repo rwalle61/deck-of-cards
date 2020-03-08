@@ -1,5 +1,3 @@
-const shuffleArray = require('shuffle-array');
-
 const deck = [
     'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',
     'SA', 'SK', 'SQ', 'SJ', 'S10', 'S9', 'S8', 'S7', 'S6', 'S5', 'S4', 'S3', 'S2',
@@ -7,24 +5,8 @@ const deck = [
     'DA', 'DK', 'DQ', 'DJ', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2',
 ];
 
-const getCards = (numCards, drawnCards = []) => {
-    if (!numCards) {
-        return [];
-    }
-    const cards = deck
-        .filter((card) => !drawnCards.includes(card))
-        .slice(0, numCards);
-    if (numCards > cards.length) {
-        throw new Error(`There aren't ${numCards} cards left in the deck`);
-    }
-    return cards;
-};
-
-const shuffle = () => {
-    shuffleArray(deck);
-};
+const getDeck = () => deck;
 
 module.exports = {
-    getCards,
-    shuffle,
+    getDeck,
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import logo from './logo.svg';
@@ -6,20 +6,9 @@ import './App.css';
 
 const origin = 'http://localhost:9100';
 
-const getCards = async (params) => {
-  try {
-    const response = await axios({
-      method: 'get',
-      url: `${origin}/api/v1/deck/`,
-      params: {
-        numCards: 0,
-        ...params,
-      }
-    });
-    return response.data;
-  } catch (err) {
-    throw err;
-  }
+const getDeck = async () => {
+  const response = await axios.get(`${origin}/api/v1/deck/`);
+  return response.data;
 };
 
 const Deck = (props) => ([
@@ -52,12 +41,27 @@ const Hand = (props) => (
 );
 
 const App = () => {
+  const [deck, setDeck] = useState([]);
   const [hand, setHand] = useState([]);
 
+  useEffect(() => {
+    async function getInitialDeck() {
+      try {
+        const initialDeck = await getDeck();
+        setDeck(initialDeck);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    getInitialDeck();
+  }, []);
+
+  const drawCard = () => {
+    return deck.slice(0, hand.length + 1);
+  }
+
   const onClick = async() => {
-    const cards = await getCards({
-      numCards: hand.length + 1,
-    });
+    const cards = drawCard();
     setHand(cards);
   };
   return (
