@@ -10,7 +10,7 @@
     "test": "(cd server && npm test) && (cd client && npm run test:full)",
     "test:full": "(npm run test:components && npm run test:integration)",
     "test:components": "(cd server && npm run test:full) && (cd client && npm run test:full)",
-    "test:integration": "npm run build && npm start & (wait-on http://localhost:9100 && npm run cypress:run)",
+    "test:integration": "npm run build && npm start & (wait-on http://localhost:9100 && CYPRESS_RETRIES=3 npm run cypress:run)",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open",
     "build": "(cd client && npm run build)",
@@ -37,7 +37,9 @@
     "husky": "^4.2.3",
     "wait-on": "^4.0.1"
   },
-  "dependencies": {},
+  "dependencies": {
+    "cypress-plugin-retries": "^1.5.2"
+  },
   "husky": {
     "hooks": {
       "pre-push": "npm run test:full"
