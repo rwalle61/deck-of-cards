@@ -1,42 +1,8 @@
-const regExpForValidCard = /[CSHD][AKQJ0-9]{1,2}/;
-
-const checkElementsAreValidCards = (elements) => {
-    elements.forEach((card) => {
-        expect(card).to.match(regExpForValidCard, 'not all elements are valid cards');
-    });
-};
-
-const checkElementsAreUnique = (elements) => {
-    const uniqueElements = [...(new Set(elements))];
-    expect(elements.length).to.equal(uniqueElements.length, 'not all elements are unique');
-};
-
-const childrenShouldContainOnlyUniqueCards = (children) => {
-    const cards = children.toArray().map((el) => el.id);
-    checkElementsAreValidCards(cards);
-    checkElementsAreUnique(cards);
-};
-
-const sortedDeck = [
-    'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',
-    'SA', 'SK', 'SQ', 'SJ', 'S10', 'S9', 'S8', 'S7', 'S6', 'S5', 'S4', 'S3', 'S2',
-    'HA', 'HK', 'HQ', 'HJ', 'H10', 'H9', 'H8', 'H7', 'H6', 'H5', 'H4', 'H3', 'H2',
-    'DA', 'DK', 'DQ', 'DJ', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2',
-];
-
-const childrenShouldBeSorted = (children) => {
-    const cards = children.toArray().map((el) => el.id);
-    const cardIndexes = cards.map((card) => sortedDeck.indexOf(card));
-    const sortedCardsIndexes = [...cardIndexes].sort((a, b) => a - b);
-    expect(cardIndexes).to.deep.equal(sortedCardsIndexes, 'cards are not sorted but should be sorted');
-};
-
-const childrenShouldNotBeSorted = ($els) => {
-    const cards = $els.toArray().map((el) => el.innerText);
-    const cardIndexes = cards.map((card) => sortedDeck.indexOf(card));
-    const sortedCardsIndexes = [...cardIndexes].sort((a, b) => a - b);
-    expect(cardIndexes).to.not.deep.equal(sortedCardsIndexes, 'cards are sorted but should not be sorted');
-};
+import {
+    childrenShouldContainOnlyUniqueCards,
+    childrenShouldBeSorted,
+    childrenShouldNotBeSorted,
+} from '../test-helpers/app.e2e.test-helper';
 
 describe('e2e app test', () => {
     beforeEach(() => {
@@ -111,24 +77,6 @@ describe('e2e app test', () => {
             .should('have.length', 52)
             .then(childrenShouldContainOnlyUniqueCards);
     });
-    it('sorts your hand if you click the sort button (after drawing cards from a shuffled deck)', () => {
-        cy.get('.Cards-in-hand').children()
-            .should('have.length', 0);
-
-        cy.get('.Shuffle-btn').click();
-
-        for (let i = 0; i < 3; i++) {
-            cy.get('.Draw-btn').click();
-        }
-        cy.get('.Cards-in-hand').children()
-            .should('have.length', 3)
-            .then(childrenShouldContainOnlyUniqueCards);
-
-        cy.get('.Sort-btn').click();
-
-        cy.get('.Cards-in-hand').children()
-            .then(childrenShouldBeSorted);
-    });
     it('adds sorted cards to your hand when you draw cards before shuffling the deck', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
@@ -156,5 +104,23 @@ describe('e2e app test', () => {
             .should('have.length', 5)
             .then(childrenShouldContainOnlyUniqueCards)
             .then(childrenShouldNotBeSorted);
+    });
+    it('sorts your hand if you click the sort button (after drawing cards from a shuffled deck)', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        cy.get('.Shuffle-btn').click();
+
+        for (let i = 0; i < 3; i++) {
+            cy.get('.Draw-btn').click();
+        }
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 3)
+            .then(childrenShouldContainOnlyUniqueCards);
+
+        cy.get('.Sort-btn').click();
+
+        cy.get('.Cards-in-hand').children()
+            .then(childrenShouldBeSorted);
     });
 });
