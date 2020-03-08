@@ -30,6 +30,13 @@ const Deck = (props) => ([
     onClick={props.onClick}
     >
     Draw card
+  </Button>,
+  <Button
+    className="Sort-btn"
+    variant="secondary"
+    // onClick={props.onClick}
+    >
+    Sort hand
   </Button>
 ]);
 

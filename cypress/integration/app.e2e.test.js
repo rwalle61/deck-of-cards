@@ -16,6 +16,25 @@ const shouldContainOnlyUniqueCards = ($els) => {
     checkElementsAreValidCards(cards);
     checkElementsAreUnique(cards);
 };
+
+const orderedDeck = [
+    'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',
+    'SA', 'SK', 'SQ', 'SJ', 'S10', 'S9', 'S8', 'S7', 'S6', 'S5', 'S4', 'S3', 'S2',
+    'HA', 'HK', 'HQ', 'HJ', 'H10', 'H9', 'H8', 'H7', 'H6', 'H5', 'H4', 'H3', 'H2',
+    'DA', 'DK', 'DQ', 'DJ', 'D10', 'D9', 'D8', 'D7', 'D6', 'D5', 'D4', 'D3', 'D2',
+];
+
+const shouldBeOrderedCorrectly = ($els) => {
+    const cards = $els.toArray().map((el) => el.innerText);
+    const sortedCards = [];
+    orderedDeck.forEach((card) => {
+        if (cards.includes(card)) {
+            sortedCards.push(card);
+        }
+    });
+    expect(cards).to.deep.equal(sortedCards);
+};
+
 describe('e2e app test', () => {
     beforeEach(() => {
         cy.visit('/');
@@ -33,6 +52,9 @@ describe('e2e app test', () => {
         cy.get('.Hand')
             .should('exist')
             .contains('Your hand');
+        cy.get('.Sort-btn')
+            .should('exist')
+            .should('contain', 'Sort hand');
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
     });
@@ -82,5 +104,35 @@ describe('e2e app test', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 52)
             .each(shouldContainOnlyUniqueCards);
+    });
+    it('sorts your hand of 1 when clicking the sort button', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        cy.get('.Draw-btn').click();
+
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 1)
+            .each(shouldContainOnlyUniqueCards);
+
+        cy.get('.Sort-btn').click();
+        cy.get('.Cards-in-hand').children()
+            .each(shouldBeOrderedCorrectly);
+    });
+    it('sorts your hand of 5 when clicking the sort button', () => {
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 0);
+
+        for (let i = 0; i < 5; i++) {
+            cy.get('.Draw-btn').click();
+        }
+
+        cy.get('.Cards-in-hand').children()
+            .should('have.length', 5)
+            .each(shouldContainOnlyUniqueCards);
+
+        cy.get('.Sort-btn').click();
+        cy.get('.Cards-in-hand').children()
+            .each(shouldBeOrderedCorrectly);
     });
 });
