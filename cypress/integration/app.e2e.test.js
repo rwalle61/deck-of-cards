@@ -22,28 +22,30 @@ describe('e2e app test', () => {
             .contains('Deck of Cards');
         cy.get('.Deck')
             .should('exist');
+        cy.get('.Draw-btn')
+            .should('exist');
         cy.get('.Hand')
             .should('exist')
             .contains('Your hand');
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
     });
-    it('adds 1 card to your hand when clicking the deck', () => {
+    it('adds 1 card to your hand when clicking the \'draw\' button', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
 
-        cy.get('.Deck')
+        cy.get('.Draw-btn')
             .click();
 
         cy.get('.Cards-in-hand').children()
             .should('have.length', 1)
             .each(containOnlyUniqueCards);
     });
-    it('adds 2 (unique) cards to your hand when clicking the deck twice', () => {
+    it('adds 2 (unique) cards to your hand when clicking the \'draw\' button twice', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
 
-        cy.get('.Deck')
+        cy.get('.Draw-btn')
             .click()
             .click();
 
@@ -51,12 +53,12 @@ describe('e2e app test', () => {
             .should('have.length', 2)
             .each(containOnlyUniqueCards);
     });
-    it('adds 52 (unique) cards to your hand when clicking the deck 52 times', () => {
+    it('adds 52 (unique) cards to your hand when clicking the \'draw\' button 52 times', () => {
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
 
         for (let i = 0; i < 52; i++) {
-            cy.get('.Deck').click();
+            cy.get('.Draw-btn').click();
         }
 
         cy.get('.Cards-in-hand').children()
@@ -68,7 +70,7 @@ describe('e2e app test', () => {
             .should('have.length', 0);
 
         for (let i = 0; i < (52 + 1); i++) {
-            cy.get('.Deck').click();
+            cy.get('.Draw-btn').click();
         }
 
         cy.get('.Cards-in-hand').children()

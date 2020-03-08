@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 import logo from './logo.svg';
 import './App.css';
 
@@ -21,9 +22,16 @@ const getCards = async (params) => {
   }
 };
 
-const Deck = (props) => (
-  <img src={logo} className="Deck" alt="deck" onClick={props.onClick}/>
-)
+const Deck = (props) => ([
+  <img src={logo} className="Deck" alt="deck"/>,
+  <Button
+    className="Draw-btn"
+    variant="primary"
+    onClick={props.onClick}
+    >
+    Draw card
+  </Button>
+]);
 
 const Hand = (props) => (
   <div className="Hand">
