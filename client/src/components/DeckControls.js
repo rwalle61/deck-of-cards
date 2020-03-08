@@ -2,7 +2,6 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import shuffleArray from 'shuffle-array';
-import playingCardBacks from '../playingCardBacks.png';
 
 const shuffleDeck = (deck) => {
   const shuffledDeck = [...deck];
@@ -10,32 +9,31 @@ const shuffleDeck = (deck) => {
   return shuffledDeck;
 };
 
-const Deck = (props) => (<Container>
-  <div><img src={playingCardBacks} className="Deck" alt="deck" /></div>
+const DeckControls = (props) => (<Container>
   <Button
     className="Shuffle-btn"
-    variant="secondary"
+    variant="outline-warning"
     onClick={props.onShuffle}
     >
-    Shuffle deck
+    Shuffle Deck
   </Button>
   <Button
     className="Draw-btn"
-    variant="primary"
+    variant="outline-success"
     onClick={props.onDraw}
     >
-    Draw card
+    Draw Card
   </Button>
   <Button
     className="Sort-btn"
-    variant="secondary"
+    variant="outline-primary"
     onClick={props.onSort}
     >
-    Sort hand
+    Sort Hand
   </Button>
 </Container>);
 
 export {
-  Deck,
+  DeckControls,
   shuffleDeck,
 };

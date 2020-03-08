@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Deck, shuffleDeck } from '../components/Deck';
+import playingCardBacks from '../playingCardBacks.png';
+import { DeckControls, shuffleDeck } from '../components/DeckControls';
 import { Hand, sortHand } from '../components/Hand';
 import './App.css';
 
@@ -52,10 +53,10 @@ const App = () => {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Deck of Cards
-        </p>
-        <Deck
+        <h1 className="title">Magic Deck</h1>
+        <div><img src={playingCardBacks} className="Deck" alt="deck" /></div>
+        <p className="Hand-title">Your Hand</p>
+        <DeckControls
           onDraw={onDraw}
           onShuffle={onShuffle}
           onSort={onSort}

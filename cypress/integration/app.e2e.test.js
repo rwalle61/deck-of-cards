@@ -11,22 +11,22 @@ describe('e2e app test', () => {
     it('renders the deck and your hand', () => {
         cy.get('.App')
             .should('exist');
-        cy.get('.App-header')
-            .contains('Deck of Cards');
+        cy.get('.title')
+            .should('contain', 'Magic Deck');
         cy.get('.Deck')
             .should('exist');
+        cy.get('.Hand-title')
+            .should('exist')
+            .should('contain', 'Your Hand');
         cy.get('.Shuffle-btn')
             .should('exist')
-            .should('contain', 'Shuffle deck');
+            .should('contain', 'Shuffle Deck');
         cy.get('.Draw-btn')
             .should('exist')
-            .should('contain', 'Draw card');
-        cy.get('.Hand')
-            .should('exist')
-            .should('contain', 'Your hand');
+            .should('contain', 'Draw Card');
         cy.get('.Sort-btn')
             .should('exist')
-            .should('contain', 'Sort hand');
+            .should('contain', 'Sort Hand');
         cy.get('.Cards-in-hand').children()
             .should('have.length', 0);
     });
