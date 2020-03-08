@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import shuffleArray from 'shuffle-array';
 import Button from 'react-bootstrap/Button';
-import logo from './logo.svg';
+import logo from '../logo.svg';
 import './App.css';
 
 const origin = 'http://localhost:9100';
