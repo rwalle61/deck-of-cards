@@ -16,14 +16,13 @@ const Deck = (props) => ([
   <Button
     className="Draw-btn"
     variant="primary"
-    onClick={props.onClick}
+    onClick={props.onDraw}
     >
     Draw card
   </Button>,
   <Button
     className="Sort-btn"
     variant="secondary"
-    // onClick={props.onClick}
     >
     Sort hand
   </Button>
@@ -60,7 +59,7 @@ const App = () => {
     return deck.slice(0, hand.length + 1);
   }
 
-  const onClick = async() => {
+  const onDraw = async() => {
     const cards = drawCard();
     setHand(cards);
   };
@@ -70,7 +69,9 @@ const App = () => {
         <p>
           Deck of Cards
         </p>
-        <Deck onClick={onClick} />
+        <Deck
+          onDraw={onDraw}
+          />
         <Hand hand={hand} />
       </header>
     </div>
