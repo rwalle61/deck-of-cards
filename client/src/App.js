@@ -1,23 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+const origin = 'http://localhost:9100';
+
+const getCards = async (params) => {
+  try {
+    const response = await axios({
+      method: 'get',
+      url: `${origin}/api/v1/deck/`,
+      params: {
+        numCards: 0,
+        ...params,
+      }
+    });
+    return response.data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const Deck = (props) => (
+  <img src={logo} className="Deck" alt="deck" onClick={props.onClick}/>
+)
+
+const Hand = (props) => (
+  <div className="Hand">
+    <p>Your hand</p>
+    <div className="Cards-in-hand">
+      {props.hand.map(card => (
+        <p className="Card" id={card}>{card}</p>
+      ))}
+    </div>
+  </div>
+);
+
+const App = () => {
+  const [hand, setHand] = useState([]);
+
+  const onClick = async() => {
+    const cards = await getCards({
+      numCards: hand.length + 1,
+    });
+    setHand(cards);
+  };
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Deck of Cards
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Deck onClick={onClick} />
+        <Hand hand={hand} />
       </header>
     </div>
   );
