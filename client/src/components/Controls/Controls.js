@@ -15,6 +15,7 @@ const Controls = ({ onShuffle, onDraw, onSort }) => (<Container className="Contr
   <Button
     className="btn Shuffle-btn"
     variant="outline-warning"
+    size="lg"
     onClick={onShuffle}
     >
     Shuffle Deck
@@ -22,6 +23,7 @@ const Controls = ({ onShuffle, onDraw, onSort }) => (<Container className="Contr
   <Button
     className="btn Draw-btn"
     variant="outline-success"
+    size="lg"
     onClick={onDraw}
     >
     Draw Card
@@ -29,6 +31,7 @@ const Controls = ({ onShuffle, onDraw, onSort }) => (<Container className="Contr
   <Button
     className="btn Sort-btn"
     variant="outline-primary"
+    size="lg"
     onClick={onSort}
     >
     Sort Hand

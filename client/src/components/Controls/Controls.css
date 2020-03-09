@@ -1,6 +1,7 @@
 .Controls {
   display: block;
   margin: 10px;
+  touch-action: double-tap-zoom;
 }
 
 .btn {
