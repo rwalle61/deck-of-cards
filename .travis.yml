@@ -9,5 +9,5 @@ addons:
 install:
   - npm i
 script:
-  - npm run test:full
+  - npm run test:ci
   - kill $(jobs -p) || true
