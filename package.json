@@ -1,7 +1,7 @@
 {
-  "name": "node-react-starter-app",
+  "name": "deck-of-cards",
   "version": "0.1.0",
-  "description": "Sample app",
+  "description": "Deck of cards",
   "main": "index.js",
   "scripts": {
     "postinstall": "(cd server && npm install) && (cd client && npm install)",
@@ -19,12 +19,11 @@
     "cypress:open": "cypress open",
     "build": "(cd client && npm run build)",
     "deploy:cloud": "REACT_APP_SERVER_LOCATION=cloud npm run build && ibmcloud dev deploy",
-    "deploy:local": "REACT_APP_SERVER_LOCATION=local npm run build && npm start",
-    "deploy:local-network": "REACT_APP_SERVER_LOCATION=local-network npm run build && npm start"
+    "deploy:local": "REACT_APP_SERVER_LOCATION=local npm run build && npm start"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:rwalle61/nodeReactStarterApp.git"
+    "url": "git@github.com:rwalle61/deck-of-cards.git"
   },
   "keywords": [],
   "author": "rwalle61 <richard.lh.waller@gmail.com>",
