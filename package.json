@@ -8,10 +8,11 @@
     "start": "(cd server && npm start)",
     "start:dev:server": "(cd server && npm run nodemon)",
     "start:dev:client": "(cd client && npm start)",
-    "start:dev": "DEBUG=start-server-and-test START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start http-get://localhost:9100 start:dev:client",
+    "start:dev": "start-server-and-test start:dev:server 9100/api/v1/deck start:dev:client",
+    "start:integration-test": "start-server-and-test start 9100/api/v1/deck start:dev:client",
     "test": "(cd server && npm test) && (cd client && npm run test:full)",
     "test:components": "(cd server && npm run test:full) && (cd client && npm run test:full)",
-    "test:integration": "start-server-and-test start:dev 3000 cypress:run",
+    "test:integration": "start-server-and-test start:integration-test 3000 cypress:run",
     "test:full": "npm run test:components && npm run test:integration",
     "test:ci": "CYPRESS_RETRIES=3 npm run test:full",
     "cypress:run": "cypress run",
@@ -38,8 +39,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-mocha": "^6.3.0",
     "husky": "^4.2.3",
-    "start-server-and-test": "^1.10.8",
-    "wait-on": "^4.0.1"
+    "start-server-and-test": "^1.10.8"
   },
   "dependencies": {
     "cypress-plugin-retries": "^1.5.2"
