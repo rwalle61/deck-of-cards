@@ -5,11 +5,13 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "(cd server && npm install) && (cd client && npm install)",
-    "start": "(cd server && npm start)",
+    "start": "npm run start:server",
+    "start:server": "(cd server && npm start)",
+    "start:client": "(cd client && npm start)",
     "start:dev:server": "(cd server && npm run nodemon)",
-    "start:dev:client": "(cd client && npm start)",
+    "start:dev:client": "(cd client && npm run open)",
     "start:dev": "start-server-and-test start:dev:server 9100/health start:dev:client",
-    "start:integration-test": "start-server-and-test start 9100/health start:dev:client",
+    "start:integration-test": "start-server-and-test start 9100/health start:client",
     "test": "(cd server && npm test) && (cd client && npm run test:full)",
     "test:components": "(cd server && npm run test:full) && (cd client && npm run test:full)",
     "test:integration": "start-server-and-test start:integration-test 42000 cypress:run",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "compress-tag": "^1.2.2",
     "cypress": "^4.1.0",
+    "cypress-plugin-retries": "^1.5.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-chai-friendly": "^0.5.0",
@@ -40,9 +43,7 @@
     "husky": "^4.2.3",
     "start-server-and-test": "^1.10.8"
   },
-  "dependencies": {
-    "cypress-plugin-retries": "^1.5.2"
-  },
+  "dependencies": {},
   "husky": {
     "hooks": {
       "pre-commit": "npm run test",

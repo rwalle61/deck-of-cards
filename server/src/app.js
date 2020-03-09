@@ -26,7 +26,7 @@ app.use('/serverImages', express.static(path.join(__dirname, '..', 'public')));
 app.use(errorHandler.handleErrors);
 
 app.listen(port, () => {
-    log.info(`App running on port ${port}`);
+    log.info(`Server running on port ${port}`);
 });
 
 module.exports = app;
