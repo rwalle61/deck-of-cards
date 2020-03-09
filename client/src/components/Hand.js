@@ -2,9 +2,9 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Card from './Card';
 
-const Hand = (props) => (
+const Hand = ({ hand }) => (
   <Container className="Cards-in-hand">
-    {props.hand.map(card => (
+    {hand.map(card => (
       <Card id={card} />
     ))}
   </Container>

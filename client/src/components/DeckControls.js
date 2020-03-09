@@ -9,25 +9,25 @@ const shuffleDeck = (deck) => {
   return deckClone;
 };
 
-const DeckControls = (props) => (<Container>
+const DeckControls = ({ onShuffle, onDraw, onSort }) => (<Container>
   <Button
     className="Shuffle-btn"
     variant="outline-warning"
-    onClick={props.onShuffle}
+    onClick={onShuffle}
     >
     Shuffle Deck
   </Button>
   <Button
     className="Draw-btn"
     variant="outline-success"
-    onClick={props.onDraw}
+    onClick={onDraw}
     >
     Draw Card
   </Button>
   <Button
     className="Sort-btn"
     variant="outline-primary"
-    onClick={props.onSort}
+    onClick={onSort}
     >
     Sort Hand
   </Button>

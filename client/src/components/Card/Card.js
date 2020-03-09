@@ -1,8 +1,7 @@
 import React from 'react';
 import './Card.css';
 
-const Card = (props) => {
-  const { id } = props;
+const Card = ({ id }) => {
   const suitID = id.substring(0, 1);
   const value = id.substring(1);
   if (suitID === 'C' || suitID === 'S') {
