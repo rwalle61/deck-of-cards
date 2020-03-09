@@ -1,6 +1,8 @@
 applications:
-  - name: sampleapp
-    routes:
-      - route: sampleapp.eu-gb.cf.appdomain.cloud
-    memory: 128M
-    timeout: 180
+- domain: null
+  host: null
+  memory: 128M
+  name: deck-of-cards
+  routes:
+  - route: deck-of-cards.eu-gb.cf.appdomain.cloud
+  timeout: 180
