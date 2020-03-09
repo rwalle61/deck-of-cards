@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
-import Card from './Card';
+import Card from '../Card';
 import PropTypes from 'prop-types';
 
 const Hand = ({ hand }) => (
