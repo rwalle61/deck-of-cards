@@ -4,6 +4,12 @@ info:
   description: API spec for Deck of Cards app
   version: 0.1.0
 paths:
+  /health:
+    get:
+      summary: Server is healthy
+      responses:
+        204:
+          description: Ok
   /api/v1/deck:
     get:
       summary: Get the starting deck

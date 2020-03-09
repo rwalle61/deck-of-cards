@@ -1,4 +1,4 @@
-# Node React Starter App
+# Deck of Cards
 
 ## Table of Contents
 
@@ -10,15 +10,17 @@
 
 ## Overview
 
-This is a starter web app I've put together from what I think is currently a good setup.
-- Node.js backend
-- React frontend
-- Integration, component and unit tests setup
-- OpenAPI 3 spec
-- Eslint
-- VSCode debugger
-- Husky git hooks
-- Ready to deploy to cloud (IBM Cloud Foundry)
+This is a simple web app allowing a magician to perform magic tricks. They can shuffle, draw and sort cards.
+
+The app is mainly a React frontend supported by a minimal Node.js Express server backend.
+
+To aid development and ensure quality, we:
+- use Behaviour Driven Development ([Cypress integration tests](#all-tests) and [Mocha backend tests](#server))
+- run all the tests on every commit to any branch (see our [`.travis.yml`](https://github.com/rwalle61/deck-of-cards/blob/master/.travis.yml))
+- have an [OpenAPI 3 specification](https://rwalle61.github.io/deck-of-cards/) for the server
+- use Eslint (Airbnb) and Husky git hooks
+- have set up a VSCode debugger
+- have set the app up to [deploy to cloud (IBM Cloud Foundry)](#deploying-the-app).
 
 ## Getting Started
 
@@ -33,7 +35,7 @@ These instructions will get you a copy of the project up and running on your loc
 Clone the repo
 
 ```bash
-git clone git@github.com:rwalle61/nodeReactStarterApp.git
+git clone git@github.com:rwalle61/deck-of-cards.git
 ```
 
 Install dependencies
@@ -128,30 +130,13 @@ npm run test:coverage
 
 ## Deploying the app
 
-### Locally (for accessing the client site on the same computer)
-
-1. Set up a [Cloudant database on IBM Cloud](https://cloud.ibm.com/catalog/services/cloudant), or run a local instance of  [Apache CouchDB](http://docs.couchdb.org/en/stable/install/mac.html).
-2. In `server/config/index.js`, set where your database is located. (If it is located on the cloud, ensure you have specified your login details in `server/config/index.js` or a `.env` file).
-3. Run `npm run deploy:local`
-
-### Local network (for accessing the client site on nearby devices, without a Wi-Fi connection)
-
-1. Run a local instance of [Apache CouchDB](http://docs.couchdb.org/en/stable/install/mac.html).
-2. In `server/config/index.js`, set that your database is located locally.
-3. Run `npm run deploy:local-network`
-4. Create a local network by (on Mac) going to `Wi-Fi settings` and selecting `Create Network`.
-5. In `client/config/index.js`, set your `origin` to your computer's Private IP address (e.g. 192.168.0.0). (On Mac, go to `System Preferences` -> `Network` -> `Wi-Fi`).
-6. On nearby internet-enabled devices, open the `available networks` settings page. The local network you created should appear here. Connect to it.
-7. The app should now be accessible at (e.g.) `http://192.168.0.0:9100`
-
-### To IBM Cloud Foundry (for accessing the client site on any internet device connected to the internet)
+### To IBM Cloud Foundry
 
 1. Set up your [IBM Cloud Foundry](https://www.ibm.com/cloud/cloud-foundry) account.
 2. In `client/config/index.js`, set the cloud config to your Cloud Foundry address.
-3. Set up a [Cloudant database on IBM Cloud](https://cloud.ibm.com/catalog/services/cloudant).
-4. In `server/config/index.js`, set that your database is located on the cloud. Ensure you have specified your login details in `server/config/index.js` or a `.env` file.
-5. `npm run deploy:cloud`
+3. `npm run deploy:cloud`
 
 ## Acknowledgments
 
+- Card deck design based on [Sarah Kuehnle's React Card Deck codepen](https://codepen.io/ursooperduper/pen/EXWxdW)
 - Inspired by many people and sources on the internet
