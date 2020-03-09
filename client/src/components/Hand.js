@@ -1,6 +1,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Card from './Card';
+import PropTypes from 'prop-types';
 
 const Hand = ({ hand }) => (
   <Container className="Cards-in-hand">
@@ -9,6 +10,10 @@ const Hand = ({ hand }) => (
     ))}
   </Container>
 );
+
+Hand.propTypes = {
+  hand: PropTypes.arrayOf(PropTypes.string).isRequired,
+}
 
 const sortedDeck = [
   'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',

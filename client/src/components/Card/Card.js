@@ -1,5 +1,6 @@
 import React from 'react';
 import './Card.css';
+import PropTypes from 'prop-types';
 
 const Card = ({ id }) => {
   const suitID = id.substring(0, 1);
@@ -34,5 +35,9 @@ const Card = ({ id }) => {
     );
   }
 };
+
+Card.propTypes = {
+  id: PropTypes.string.isRequired,
+}
 
 export default Card;

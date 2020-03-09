@@ -2,6 +2,7 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import shuffleArray from 'shuffle-array';
+import PropTypes from 'prop-types';
 
 const shuffleDeck = (deck) => {
   const deckClone = [...deck];
@@ -32,6 +33,12 @@ const DeckControls = ({ onShuffle, onDraw, onSort }) => (<Container>
     Sort Hand
   </Button>
 </Container>);
+
+DeckControls.propTypes = {
+  onShuffle: PropTypes.func.isRequired,
+  onDraw: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+}
 
 export {
   DeckControls,
