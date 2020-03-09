@@ -62,7 +62,7 @@ Alternatively, you can run `npm start` from
 
 Run `npm run start:dev` from the root directory to start both the client and server in 'hot-restart' mode. Editing the client code will restart the client; editing the server code will restart the server
 
-The client app will be running at `http://localhost:3000`.
+The client app will be running at `http://localhost:42000`.
 
 The server will be running at `http://localhost:9100`.
 

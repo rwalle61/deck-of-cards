@@ -15,8 +15,8 @@
     "shuffle-array": "^1.0.1"
   },
   "scripts": {
-    "start": "BROWSER=none react-scripts start",
-    "open": "react-scripts start",
+    "start": "PORT=42000 BROWSER=none react-scripts start",
+    "open": "PORT=42000 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:full": "CI=true npm test -- --coverage",

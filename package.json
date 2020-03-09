@@ -12,7 +12,7 @@
     "start:integration-test": "start-server-and-test start 9100/health start:dev:client",
     "test": "(cd server && npm test) && (cd client && npm run test:full)",
     "test:components": "(cd server && npm run test:full) && (cd client && npm run test:full)",
-    "test:integration": "start-server-and-test start:integration-test 3000 cypress:run",
+    "test:integration": "start-server-and-test start:integration-test 42000 cypress:run",
     "test:full": "npm run test:components && npm run test:integration",
     "test:ci": "CYPRESS_RETRIES=3 npm run test:full",
     "cypress:run": "cypress run",
