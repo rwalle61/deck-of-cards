@@ -9,6 +9,7 @@ import getDeck from '../utils/apiRequests';
 const App = () => {
   const [deck, setDeck] = useState([]);
   const [hand, setHand] = useState([]);
+  const [errorConnectingToServer, setErrorConnectingToServer] = useState(false);
 
   useEffect(() => {
     async function getInitialDeck() {
@@ -17,6 +18,7 @@ const App = () => {
         setDeck(initialDeck);
       } catch (err) {
         console.log(err);
+        setErrorConnectingToServer(true);
       }
     }
     getInitialDeck();
@@ -48,10 +50,15 @@ const App = () => {
     setHand(sortedHand);
   };
 
+  const connectionErrorMsg = () => errorConnectingToServer
+    ? <p>Error connecting to server. Is it on?</p>
+    : null;
+
   return (
     <div className="App">
       <header className="App-header">
         <h1 className="title">Magic Deck</h1>
+        {connectionErrorMsg()}
         <div><img src={playingCardBacks} className="Deck" alt="deck" /></div>
         <p className="Hand-title">Your Hand</p>
         <DeckControls
