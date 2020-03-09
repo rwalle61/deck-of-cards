@@ -12,8 +12,7 @@ describe('e2e app test', () => {
     it('renders the deck, my hand and the controls', () => {
         cy.get('.App')
             .should('exist')
-            .should('contain', 'Magic Deck')
-            .should('not.contain', 'Your Hand');
+            .should('contain', 'Magic Deck');
         cy.get('.Deck').children()
             .should('have.length', 52);
 
@@ -29,6 +28,74 @@ describe('e2e app test', () => {
 
         cy.get('.Hand').children()
             .should('have.length', 0);
+    });
+    describe('Acceptance Criteria 1: I can shuffle the deck of cards', () => {
+        it('shuffles the deck when I click the shuffle button', () => {
+            cy.get('.Deck').children()
+                .should('have.length', 52)
+                .then((children) => {
+                    const originalDeck = children.toArray().map((el) => el.id);
+
+                    cy.get('.Shuffle-btn').click();
+                    cy.get('.Deck').children()
+                        .then((newChildren) => {
+                            const newDeck = newChildren.toArray().map((el) => el.id);
+                            expect(newDeck).to.not.deep.equal(originalDeck);
+                        });
+                });
+        });
+        it('draws sorted cards before I have shuffled the deck', () => {
+            cy.get('.Hand').children()
+                .should('have.length', 0);
+
+            for (let i = 0; i < 5; i++) {
+                cy.get('.Draw-btn').click();
+            }
+
+            cy.get('.Hand').children()
+                .should('have.length', 5)
+                .then(childrenShouldContainOnlyUniqueCards)
+                .then(childrenShouldBeSorted);
+        });
+        it('draws unsorted cards after I have shuffled the deck', () => {
+            cy.get('.Hand').children()
+                .should('have.length', 0);
+
+            cy.get('.Shuffle-btn').click();
+
+            for (let i = 0; i < 5; i++) {
+                cy.get('.Draw-btn').click();
+            }
+
+            cy.get('.Hand').children()
+                .should('have.length', 5)
+                .then(childrenShouldContainOnlyUniqueCards)
+                .then(childrenShouldNotBeSorted);
+        });
+        it('does not shuffle my hand when I shuffle the deck and draw a card (regression test)', () => {
+            cy.get('.Hand').children()
+                .should('have.length', 0);
+
+            for (let i = 0; i < 5; i++) {
+                cy.get('.Draw-btn').click();
+            }
+
+            cy.get('.Hand').children()
+                .should('have.length', 5)
+                .then(childrenShouldContainOnlyUniqueCards)
+                .then((children) => {
+                    const originalHand = children.toArray().map((el) => el.id);
+
+                    cy.get('.Shuffle-btn').click();
+                    cy.get('.Draw-btn').click();
+                    cy.get('.Hand').children()
+                        .should('have.length', 6)
+                        .then((newChildren) => {
+                            const newHand = newChildren.toArray().map((el) => el.id);
+                            expect(newHand.slice(0, 5)).to.deep.equal(originalHand);
+                        });
+                });
+        });
     });
     describe(c`Acceptance Criteria 2: I can draw any given number of cards from the deck,
         with the cards being removed from the original deck`, () => {
@@ -94,60 +161,6 @@ describe('e2e app test', () => {
                 .then(childrenShouldContainOnlyUniqueCards);
             cy.get('.Deck').children()
                 .should('have.length', 0);
-        });
-    });
-    describe('Acceptance Criteria 1: I can shuffle the deck of cards', () => {
-        it('draws sorted cards before I have shuffled the deck', () => {
-            cy.get('.Hand').children()
-                .should('have.length', 0);
-
-            for (let i = 0; i < 5; i++) {
-                cy.get('.Draw-btn').click();
-            }
-
-            cy.get('.Hand').children()
-                .should('have.length', 5)
-                .then(childrenShouldContainOnlyUniqueCards)
-                .then(childrenShouldBeSorted);
-        });
-        it('draws unsorted cards after I have shuffled the deck', () => {
-            cy.get('.Hand').children()
-                .should('have.length', 0);
-
-            cy.get('.Shuffle-btn').click();
-
-            for (let i = 0; i < 5; i++) {
-                cy.get('.Draw-btn').click();
-            }
-
-            cy.get('.Hand').children()
-                .should('have.length', 5)
-                .then(childrenShouldContainOnlyUniqueCards)
-                .then(childrenShouldNotBeSorted);
-        });
-        it('does not shuffle my hand when I shuffle the deck and draw a card (regression test)', () => {
-            cy.get('.Hand').children()
-                .should('have.length', 0);
-
-            for (let i = 0; i < 5; i++) {
-                cy.get('.Draw-btn').click();
-            }
-
-            cy.get('.Hand').children()
-                .should('have.length', 5)
-                .then(childrenShouldContainOnlyUniqueCards)
-                .then((children) => {
-                    const originalHand = children.toArray().map((el) => el.id);
-
-                    cy.get('.Shuffle-btn').click();
-                    cy.get('.Draw-btn').click();
-                    cy.get('.Hand').children()
-                        .should('have.length', 6)
-                        .then((newChildren) => {
-                            const newHand = newChildren.toArray().map((el) => el.id);
-                            expect(newHand.slice(0, 5)).to.deep.equal(originalHand);
-                        });
-                });
         });
     });
     describe(c`Acceptance Criteria 3: I can draw any given number of cards from the deck

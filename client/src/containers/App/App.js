@@ -15,6 +15,7 @@ const App = () => {
     async function getInitialDeck() {
       try {
         const initialDeck = await getDeck();
+        initialDeck.reverse(); // we draw from the end of the end because the deck is rendered above the hand
         setDeck(initialDeck);
       } catch (err) {
         console.log(err);
@@ -25,8 +26,10 @@ const App = () => {
   }, []);
 
   const drawCard = () => {
-    const card = deck[0];
-    const newDeck = deck.slice(1);
+    // draw from the end because the deck is rendered above the hand
+    const indexOfLastCard = deck.length - 1
+    const card = deck[indexOfLastCard];
+    const newDeck = deck.slice(0, indexOfLastCard);
     return { card, newDeck };
   }
 

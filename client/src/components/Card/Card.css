@@ -1,3 +1,7 @@
+li {
+  list-style-type:none;
+}
+
 .card {
   display: flex;
   width: 48px;
@@ -5,7 +9,7 @@
   background-color: #FFF;
   border-radius: 8px;
   border: 1px solid black;
-  margin: 16px;
+  margin: 10px;
   padding: 4px;
   text-align: left;
 }

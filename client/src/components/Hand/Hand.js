@@ -1,19 +1,20 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
+import { PoseGroup } from 'react-pose';
+import { AnimatedCardDiv } from '../../animations/list-animations';
 import Card from '../Card';
 import './Hand.css';
 
-const handTitle = () => <p className="Hand-title">Your Hand</p>;
-
 const Hand = ({ hand }) => (
-  <Container>
-    {hand.length ? handTitle() : null}
-    <Container className="Hand">
+  <Container className="Hand">
+    <PoseGroup>
       {hand.map(card => (
-        <Card key={card} id={card} />
+        <AnimatedCardDiv id={card} key={card}>
+          <Card id={card}/>
+        </AnimatedCardDiv>
       ))}
-    </Container>
+    </PoseGroup>
   </Container>
 );
 

@@ -1,14 +1,20 @@
 import React from 'react';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
+import { PoseGroup } from 'react-pose';
+import { AnimatedCardDiv } from '../../animations/list-animations';
 import Card from '../Card';
 import './Deck.css';
 
 const Deck = ({ deck }) => (
   <Container className="Deck">
-    {deck.map(card => (
-      <Card key={card} id={card} showBack={true}/>
-    ))}
+    <PoseGroup>
+      {deck.map(card => (
+        <AnimatedCardDiv id={card} key={card}>
+          <Card id={card} showBack={true}/>
+        </AnimatedCardDiv>
+      ))}
+    </PoseGroup>
   </Container>
 );
 
