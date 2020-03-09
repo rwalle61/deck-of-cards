@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import playingCardBacks from '../../playingCardBacks.png';
+import { Deck } from '../../components/Deck';
 import { Controls, shuffleDeck } from '../../components/Controls';
 import { Hand, sortHand } from '../../components/Hand';
 import './App.css';
@@ -59,8 +59,7 @@ const App = () => {
       <header className="App-header">
         <h1 className="title">Magic Deck</h1>
         {connectionErrorMsg()}
-        <div><img src={playingCardBacks} className="Deck" alt="deck" /></div>
-        <p className="Hand-title">Your Hand</p>
+        <Deck deck={deck} />
         <Controls
           onDraw={onDraw}
           onShuffle={onShuffle}

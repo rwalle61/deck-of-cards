@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import shuffleArray from 'shuffle-array';
 import PropTypes from 'prop-types';
+import './Controls.css'
 
 const shuffleDeck = (deck) => {
   const deckClone = [...deck];
@@ -10,23 +11,23 @@ const shuffleDeck = (deck) => {
   return deckClone;
 };
 
-const Controls = ({ onShuffle, onDraw, onSort }) => (<Container>
+const Controls = ({ onShuffle, onDraw, onSort }) => (<Container className="Controls">
   <Button
-    className="Shuffle-btn"
+    className="btn Shuffle-btn"
     variant="outline-warning"
     onClick={onShuffle}
     >
     Shuffle Deck
   </Button>
   <Button
-    className="Draw-btn"
+    className="btn Draw-btn"
     variant="outline-success"
     onClick={onDraw}
     >
     Draw Card
   </Button>
   <Button
-    className="Sort-btn"
+    className="btn Sort-btn"
     variant="outline-primary"
     onClick={onSort}
     >

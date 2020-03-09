@@ -12,16 +12,3 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.Deck {
-  height: 40vmin;
-}
-
-.Cards-in-hand {
-  display: flex;
-  flex-flow: row wrap;
-}
-
-.Card {
-  padding: 1em;
-}

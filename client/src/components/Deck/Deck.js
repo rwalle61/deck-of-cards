@@ -2,23 +2,18 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
 import Card from '../Card';
-import './Hand.css';
+import './Deck.css';
 
-const handTitle = () => <p className="Hand-title">Your Hand</p>;
-
-const Hand = ({ hand }) => (
-  <Container>
-    {hand.length ? handTitle() : null}
-    <Container className="Hand">
-      {hand.map(card => (
-        <Card key={card} id={card} />
-      ))}
-    </Container>
+const Deck = ({ deck }) => (
+  <Container className="Deck">
+    {deck.map(card => (
+      <Card key={card} id={card} showBack={true}/>
+    ))}
   </Container>
 );
 
-Hand.propTypes = {
-  hand: PropTypes.arrayOf(PropTypes.string).isRequired,
+Deck.propTypes = {
+  deck: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 const sortedDeck = [
@@ -39,6 +34,6 @@ const sortHand = (hand) => {
 };
 
 export {
-  Hand,
+  Deck,
   sortHand,
 };

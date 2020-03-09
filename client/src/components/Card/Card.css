@@ -1,42 +1,53 @@
 .card {
-    display: flex;
-    width: 48px;
-    height: 90px;
-    background-color: #FFF;
-    border-radius: 8px;
-    border: 1px solid black;
-    margin: 16px;
-    padding: 4px;
-    text-align: left;
-  }
+  display: flex;
+  width: 48px;
+  height: 90px;
+  background-color: #FFF;
+  border-radius: 8px;
+  border: 1px solid black;
+  margin: 16px;
+  padding: 4px;
+  text-align: left;
+}
 
-  .card-black {
-    color: black;
-  }
+.card-back {
+  display: flex;
+  width: 24px;
+  height: 45px;
+  background-color: blue;
+  border-radius: 4px;
+  border: 1px solid black;
+  margin: 8px;
+  padding: 2px;
+}
 
-  .card-red {
-    color: red;
-  }
+.card-black {
+  color: black;
+}
 
-  .card-value {
-    font-size: 16px;
-  }
+.card-red {
+  color: red;
+}
 
-  .card-suit {
-    font-size: 12px;
-  }
+.card-value {
+  font-size: 16px;
+}
 
-  .card-topleft {
-    display: flex;
-    flex-grow: 1;
-    flex-flow: column nowrap;
-    align-items: flex-start;
-  }
+.card-suit {
+  font-size: 12px;
+}
 
-  .card-bottomright {
-    display: flex;
-    flex-grow: 1;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    transform:rotate(-180deg);
-  }
+.card-topleft {
+  display: flex;
+  flex-grow: 1;
+  flex-flow: column nowrap;
+  align-items: flex-start;
+}
+
+.card-bottomright {
+  display: flex;
+  flex-grow: 1;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  transform:rotate(-180deg);
+}

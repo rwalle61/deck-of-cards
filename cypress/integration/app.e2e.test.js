@@ -11,14 +11,12 @@ describe('e2e app test', () => {
     });
     it('renders the deck, my hand and the controls', () => {
         cy.get('.App')
-            .should('exist');
-        cy.get('.title')
-            .should('contain', 'Magic Deck');
-        cy.get('.Deck')
-            .should('exist');
-        cy.get('.Hand-title')
             .should('exist')
-            .should('contain', 'Your Hand');
+            .should('contain', 'Magic Deck')
+            .should('not.contain', 'Your Hand');
+        cy.get('.Deck').children()
+            .should('have.length', 52);
+
         cy.get('.Shuffle-btn')
             .should('exist')
             .should('contain', 'Shuffle Deck');
@@ -28,75 +26,92 @@ describe('e2e app test', () => {
         cy.get('.Sort-btn')
             .should('exist')
             .should('contain', 'Sort Hand');
-        cy.get('.Cards-in-hand').children()
+
+        cy.get('.Hand').children()
             .should('have.length', 0);
     });
     describe(c`Acceptance Criteria 2: I can draw any given number of cards from the deck,
         with the cards being removed from the original deck`, () => {
-        it('draws 1 card when clicking the \'draw\' button', () => {
-            cy.get('.Cards-in-hand').children()
+        it('draws 1 card and removes 1 card from the deck when clicking the \'draw\' button', () => {
+            cy.get('.Hand').children()
                 .should('have.length', 0);
+            cy.get('.Deck').children()
+                .should('have.length', 52);
 
             cy.get('.Draw-btn')
                 .click();
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 1)
                 .then(childrenShouldContainOnlyUniqueCards);
+            cy.get('.Deck').children()
+                .should('have.length', 51);
         });
-        it('draws 2 unique cards when clicking the \'draw\' button twice', () => {
-            cy.get('.Cards-in-hand').children()
+        it('draws 2 unique cards and removes 2 cards from the deck when clicking the \'draw\' button twice', () => {
+            cy.get('.Hand').children()
                 .should('have.length', 0);
+            cy.get('.Deck').children()
+                .should('have.length', 52);
 
             cy.get('.Draw-btn')
                 .click()
                 .click();
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 2)
                 .then(childrenShouldContainOnlyUniqueCards);
+            cy.get('.Deck').children()
+                .should('have.length', 50);
         });
-        it('draws 52 unique cards when clicking the \'draw\' button 52 times', () => {
-            cy.get('.Cards-in-hand').children()
+        it('draws 52 unique cards and removes 52 cards from the deck when clicking the \'draw\' button 52 times', () => {
+            cy.get('.Hand').children()
                 .should('have.length', 0);
+            cy.get('.Deck').children()
+                .should('have.length', 52);
 
             for (let i = 0; i < 52; i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 52)
                 .then(childrenShouldContainOnlyUniqueCards);
-        });
-        it('draws no more cards when I have 52 cards in hand and click the \'draw\' button again', () => {
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Deck').children()
                 .should('have.length', 0);
+        });
+        it('draws no more cards and removes no cards from the deck when I have 52 cards in hand and click the \'draw\' button', () => {
+            cy.get('.Hand').children()
+                .should('have.length', 0);
+            cy.get('.Deck').children()
+                .should('have.length', 52);
 
             for (let i = 0; i < (52 + 1); i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 52)
                 .then(childrenShouldContainOnlyUniqueCards);
+            cy.get('.Deck').children()
+                .should('have.length', 0);
         });
     });
     describe('Acceptance Criteria 1: I can shuffle the deck of cards', () => {
         it('draws sorted cards before I have shuffled the deck', () => {
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 0);
 
             for (let i = 0; i < 5; i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 5)
                 .then(childrenShouldContainOnlyUniqueCards)
                 .then(childrenShouldBeSorted);
         });
         it('draws unsorted cards after I have shuffled the deck', () => {
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 0);
 
             cy.get('.Shuffle-btn').click();
@@ -105,20 +120,20 @@ describe('e2e app test', () => {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 5)
                 .then(childrenShouldContainOnlyUniqueCards)
                 .then(childrenShouldNotBeSorted);
         });
         it('does not shuffle my hand when I shuffle the deck and draw a card (regression test)', () => {
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 0);
 
             for (let i = 0; i < 5; i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 5)
                 .then(childrenShouldContainOnlyUniqueCards)
                 .then((children) => {
@@ -126,7 +141,7 @@ describe('e2e app test', () => {
 
                     cy.get('.Shuffle-btn').click();
                     cy.get('.Draw-btn').click();
-                    cy.get('.Cards-in-hand').children()
+                    cy.get('.Hand').children()
                         .should('have.length', 6)
                         .then((newChildren) => {
                             const newHand = newChildren.toArray().map((el) => el.id);
@@ -140,7 +155,7 @@ describe('e2e app test', () => {
         Also, Acceptance Criteria 4: Sorted cards are sorted by suit: Clubs, Spades, Hearts, Diamonds;
         then by value: Ace is high.`, () => {
         it('sorts my hand when I click the \'sort\' button (after drawing cards from a shuffled deck)', () => {
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 0);
 
             cy.get('.Shuffle-btn').click();
@@ -151,7 +166,7 @@ describe('e2e app test', () => {
 
             cy.get('.Sort-btn').click();
 
-            cy.get('.Cards-in-hand').children()
+            cy.get('.Hand').children()
                 .should('have.length', 3)
                 .then(childrenShouldBeSorted);
         });
