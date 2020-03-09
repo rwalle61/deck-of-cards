@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const Hand = ({ hand }) => (
   <Container className="Cards-in-hand">
     {hand.map(card => (
-      <Card id={card} />
+      <Card key={card} id={card} />
     ))}
   </Container>
 );
