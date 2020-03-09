@@ -3,12 +3,10 @@ import Container from 'react-bootstrap/Container';
 import Card from './Card';
 
 const Hand = (props) => (
-  <Container>
-    <Container className="Cards-in-hand">
-      {props.hand.map(card => (
-        <Card id={card} />
-      ))}
-    </Container>
+  <Container className="Cards-in-hand">
+    {props.hand.map(card => (
+      <Card id={card} />
+    ))}
   </Container>
 );
 

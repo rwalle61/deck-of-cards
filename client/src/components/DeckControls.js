@@ -4,9 +4,9 @@ import Container from 'react-bootstrap/Container';
 import shuffleArray from 'shuffle-array';
 
 const shuffleDeck = (deck) => {
-  const shuffledDeck = [...deck];
-  shuffleArray(shuffledDeck);
-  return shuffledDeck;
+  const deckClone = [...deck];
+  shuffleArray(deckClone);
+  return deckClone;
 };
 
 const DeckControls = (props) => (<Container>

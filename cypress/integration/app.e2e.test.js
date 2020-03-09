@@ -117,7 +117,6 @@ describe('e2e app test', () => {
             .should('have.length', 5)
             .then(childrenShouldContainOnlyUniqueCards)
             .then((children) => {
-                childrenShouldBeSorted(children);
                 const originalHand = children.toArray().map((el) => el.id);
 
                 cy.get('.Shuffle-btn').click();
@@ -139,13 +138,11 @@ describe('e2e app test', () => {
         for (let i = 0; i < 3; i++) {
             cy.get('.Draw-btn').click();
         }
-        cy.get('.Cards-in-hand').children()
-            .should('have.length', 3)
-            .then(childrenShouldContainOnlyUniqueCards);
 
         cy.get('.Sort-btn').click();
 
         cy.get('.Cards-in-hand').children()
+            .should('have.length', 3)
             .then(childrenShouldBeSorted);
     });
 });
