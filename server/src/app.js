@@ -15,6 +15,7 @@ const log = new Logger(__filename);
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/health', (req, res) => res.sendStatus(204));
 app.use('/api/v1/', v1Routes);
 app.use(
     '/',
