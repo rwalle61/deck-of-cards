@@ -2,48 +2,49 @@ import React from 'react';
 import './Card.css';
 import PropTypes from 'prop-types';
 
+const suitIDToIcon = {
+  C: '♣︎',
+  S: '♠︎',
+  H: '♥︎',
+  D: '♦︎',
+}
+
+const suitIDToColour = {
+  C: 'black',
+  S: 'black',
+  H: 'red',
+  D: 'red',
+}
+
+const CardFront = (id, colour, suitIcon, value) => (
+  <div id={id} className={`card card-${colour}`}>
+    <div className="card-topleft">
+      <div className="card-value">{value}</div>
+      <div className="card-suit">{suitIcon}</div>
+    </div>
+    <div className="card-bottomright">
+      <div className="card-value">{value}</div>
+      <div className="card-suit">{suitIcon}</div>
+    </div>
+  </div>
+);
+
+const CardBack = (id) => <div id={id} className="card-back"></div>;
+
 const Card = ({ id, showBack }) => {
   if (showBack) {
-    return (
-      <div id={id} className="card-back"></div>
-    );
+    return CardBack(id);
   }
-  const suitID = id.substring(0, 1);
+  const suitID = id.charAt(0);
   const value = id.substring(1);
-  if (suitID === 'C' || suitID === 'S') {
-    const suit = (suitID === 'C') ? '♣︎' : '♠︎';
-    return (
-      <div id={id} className="card card-black">
-        <div className="card-topleft">
-          <div className="card-value">{value}</div>
-          <div className="card-suit">{suit}</div>
-        </div>
-        <div className="card-bottomright">
-          <div className="card-value">{value}</div>
-          <div className="card-suit">{suit}</div>
-        </div>
-      </div>
-    );
-  } else {
-    const suit = (suitID === 'H') ? '♥︎' : '♦︎';
-    return (
-      <div id={id} className="card card-red">
-        <div className="card-topleft">
-          <div className="card-value">{value}</div>
-          <div className="card-suit">{suit}</div>
-        </div>
-        <div className="card-bottomright">
-          <div className="card-value">{value}</div>
-          <div className="card-suit">{suit}</div>
-        </div>
-      </div>
-    );
-  }
+  const colour = suitIDToColour[suitID];
+  const suitIcon = suitIDToIcon[suitID];
+  return CardFront(id, colour, suitIcon, value);
 };
 
 Card.propTypes = {
   id: PropTypes.string.isRequired,
-  id: PropTypes.bool,
+  showBack: PropTypes.bool,
 }
 
 export default Card;
