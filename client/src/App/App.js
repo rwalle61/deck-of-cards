@@ -8,7 +8,6 @@ import getDeck from '../utils/apiRequests';
 
 const App = () => {
   const [deck, setDeck] = useState([]);
-  const [sortedDeck, setSortedDeck] = useState([]);
   const [hand, setHand] = useState([]);
 
   useEffect(() => {
@@ -16,7 +15,6 @@ const App = () => {
       try {
         const initialDeck = await getDeck();
         setDeck(initialDeck);
-        setSortedDeck(initialDeck);
       } catch (err) {
         console.log(err);
       }
@@ -46,7 +44,7 @@ const App = () => {
   };
 
   const onSort = async() => {
-    const sortedHand = sortHand(hand, sortedDeck);
+    const sortedHand = sortHand(hand);
     setHand(sortedHand);
   };
 
