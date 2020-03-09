@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import playingCardBacks from '../playingCardBacks.png';
-import { DeckControls, shuffleDeck } from '../components/DeckControls';
-import { Hand, sortHand } from '../components/Hand';
+import playingCardBacks from '../../playingCardBacks.png';
+import { Controls, shuffleDeck } from '../../components/Controls';
+import { Hand, sortHand } from '../../components/Hand';
 import './App.css';
 
-import getDeck from '../utils/apiRequests';
+import getDeck from '../../utils/apiRequests';
 
 const App = () => {
   const [deck, setDeck] = useState([]);
@@ -61,7 +61,7 @@ const App = () => {
         {connectionErrorMsg()}
         <div><img src={playingCardBacks} className="Deck" alt="deck" /></div>
         <p className="Hand-title">Your Hand</p>
-        <DeckControls
+        <Controls
           onDraw={onDraw}
           onShuffle={onShuffle}
           onSort={onSort}

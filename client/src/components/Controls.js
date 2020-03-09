@@ -10,7 +10,7 @@ const shuffleDeck = (deck) => {
   return deckClone;
 };
 
-const DeckControls = ({ onShuffle, onDraw, onSort }) => (<Container>
+const Controls = ({ onShuffle, onDraw, onSort }) => (<Container>
   <Button
     className="Shuffle-btn"
     variant="outline-warning"
@@ -34,13 +34,13 @@ const DeckControls = ({ onShuffle, onDraw, onSort }) => (<Container>
   </Button>
 </Container>);
 
-DeckControls.propTypes = {
+Controls.propTypes = {
   onShuffle: PropTypes.func.isRequired,
   onDraw: PropTypes.func.isRequired,
   onSort: PropTypes.func.isRequired,
 }
 
 export {
-  DeckControls,
+  Controls,
   shuffleDeck,
 };
