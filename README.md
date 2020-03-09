@@ -134,7 +134,7 @@ npm run test:coverage
 
 1. Set up your [IBM Cloud Foundry](https://www.ibm.com/cloud/cloud-foundry) account.
 2. In `client/config/index.js`, set the cloud config to your Cloud Foundry address.
-3. `npm run deploy:cloud`
+3. Deploy using `npm run deploy:cloud` then update using `npm run deploy:cloud:update`
 
 ## Acknowledgments
 

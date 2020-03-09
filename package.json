@@ -21,6 +21,7 @@
     "cypress:open": "cypress open",
     "build": "(cd client && npm run build)",
     "deploy:cloud": "REACT_APP_SERVER_LOCATION=cloud npm run build && ibmcloud dev deploy",
+    "deploy:cloud:update": "REACT_APP_SERVER_LOCATION=cloud npm run build && ibmcloud cf push",
     "deploy:local": "REACT_APP_SERVER_LOCATION=local npm run build && npm start"
   },
   "repository": {
