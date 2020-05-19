@@ -4,29 +4,13 @@ import { Controls, shuffleDeck } from '../../components/Controls';
 import { Hand, sortHand } from '../../components/Hand';
 import './App.css';
 
-import getDeck from '../../utils/apiRequests';
+import initialDeck from '../../utils/initialDeck';
 
 const App = () => {
-  const [deck, setDeck] = useState([]);
+  const [deck, setDeck] = useState(initialDeck);
   const [hand, setHand] = useState([]);
-  const [errorConnectingToServer, setErrorConnectingToServer] = useState(false);
-
-  useEffect(() => {
-    async function getInitialDeck() {
-      try {
-        const initialDeck = await getDeck();
-        initialDeck.reverse(); // we draw from the end of the end because the deck is rendered above the hand
-        setDeck(initialDeck);
-      } catch (err) {
-        console.log(err);
-        setErrorConnectingToServer(true);
-      }
-    }
-    getInitialDeck();
-  }, []);
 
   const drawCard = () => {
-    // draw from the end because the deck is rendered above the hand
     const indexOfLastCard = deck.length - 1
     const card = deck[indexOfLastCard];
     const newDeck = deck.slice(0, indexOfLastCard);
@@ -53,15 +37,10 @@ const App = () => {
     setHand(sortedHand);
   };
 
-  const connectionErrorMsg = () => errorConnectingToServer
-    ? <p>Error connecting to server. Is it on?</p>
-    : null;
-
   return (
     <div className="App">
       <header className="App-header">
         <h1 className="title">Magic Deck</h1>
-        {connectionErrorMsg()}
         <Deck deck={deck} />
         <Controls
           onDraw={onDraw}
