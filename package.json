@@ -37,7 +37,7 @@
     "cypress-plugin-retries": "^1.5.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
-    "eslint-plugin-chai-friendly": "^0.5.0",
+    "eslint-plugin-chai-friendly": "^0.6.0",
     "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-mocha": "^6.3.0",
