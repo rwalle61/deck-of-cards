@@ -7,11 +7,11 @@ import Card from '../Card';
 import './Hand.css';
 
 const Hand = ({ hand }) => (
-  <Container className="Hand">
+  <Container className='Hand'>
     <PoseGroup>
-      {hand.map(card => (
+      {hand.map((card) => (
         <AnimatedCardDiv id={card} key={card}>
-          <Card id={card}/>
+          <Card id={card} />
         </AnimatedCardDiv>
       ))}
     </PoseGroup>
@@ -20,8 +20,9 @@ const Hand = ({ hand }) => (
 
 Hand.propTypes = {
   hand: PropTypes.arrayOf(PropTypes.string).isRequired,
-}
+};
 
+// prettier-ignore
 const sortedDeck = [
   'CA', 'CK', 'CQ', 'CJ', 'C10', 'C9', 'C8', 'C7', 'C6', 'C5', 'C4', 'C3', 'C2',
   'SA', 'SK', 'SQ', 'SJ', 'S10', 'S9', 'S8', 'S7', 'S6', 'S5', 'S4', 'S3', 'S2',
@@ -39,7 +40,4 @@ const sortHand = (hand) => {
   return sortedHand;
 };
 
-export {
-  Hand,
-  sortHand,
-};
+export { Hand, sortHand };

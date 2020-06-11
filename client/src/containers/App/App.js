@@ -11,13 +11,13 @@ const App = () => {
   const [hand, setHand] = useState([]);
 
   const drawCard = () => {
-    const indexOfLastCard = deck.length - 1
+    const indexOfLastCard = deck.length - 1;
     const card = deck[indexOfLastCard];
     const newDeck = deck.slice(0, indexOfLastCard);
     return { card, newDeck };
-  }
+  };
 
-  const onDraw = async() => {
+  const onDraw = async () => {
     if (deck.length < 1) {
       return;
     }
@@ -27,30 +27,26 @@ const App = () => {
     setDeck(newDeck);
   };
 
-  const onShuffle = async() => {
+  const onShuffle = async () => {
     const shuffledDeck = shuffleDeck(deck);
     setDeck(shuffledDeck);
   };
 
-  const onSort = async() => {
+  const onSort = async () => {
     const sortedHand = sortHand(hand);
     setHand(sortedHand);
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="title">Magic Deck</h1>
+    <div className='App'>
+      <header className='App-header'>
+        <h1 className='title'>Magic Deck</h1>
         <Deck deck={deck} />
-        <Controls
-          onDraw={onDraw}
-          onShuffle={onShuffle}
-          onSort={onSort}
-          />
+        <Controls onDraw={onDraw} onShuffle={onShuffle} onSort={onSort} />
         <Hand hand={hand} />
       </header>
     </div>
   );
-}
+};
 
 export default App;

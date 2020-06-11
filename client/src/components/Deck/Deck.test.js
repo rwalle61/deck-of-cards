@@ -4,7 +4,7 @@ import { Deck } from '.';
 
 describe('<Deck />', () => {
   it('renders without crashing', () => {
-    const wrapper = shallow(<Deck deck={[]}/>);
+    const wrapper = shallow(<Deck deck={[]} />);
     expect(wrapper).toHaveLength(1);
   });
 });

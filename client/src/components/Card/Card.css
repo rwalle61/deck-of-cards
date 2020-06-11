@@ -1,12 +1,12 @@
 li {
-  list-style-type:none;
+  list-style-type: none;
 }
 
 .card {
   display: flex;
   width: 2rem;
   height: 3.5rem;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 0.3rem;
   border: 1px solid black;
   margin: 0.25rem;
@@ -53,5 +53,5 @@ li {
   flex-grow: 1;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  transform:rotate(-180deg);
+  transform: rotate(-180deg);
 }
