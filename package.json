@@ -32,7 +32,7 @@
   "author": "rwalle61 <richard.lh.waller@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "compress-tag": "^1.2.2",
+    "compress-tag": "^2.0.0",
     "cypress": "^4.1.0",
     "cypress-plugin-retries": "^1.5.2",
     "eslint": "^6.8.0",
