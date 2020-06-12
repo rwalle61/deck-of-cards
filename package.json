@@ -42,7 +42,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-mocha": "^6.3.0",
     "husky": "^4.2.5",
-    "start-server-and-test": "^1.10.7"
+    "start-server-and-test": "^1.11.0"
   },
   "dependencies": {},
   "husky": {
