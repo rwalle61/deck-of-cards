@@ -33,7 +33,7 @@
   "license": "MIT",
   "devDependencies": {
     "compress-tag": "^2.0.0",
-    "cypress": "^4.1.0",
+    "cypress": "^4.8.0",
     "cypress-plugin-retries": "^1.5.2",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
