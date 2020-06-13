@@ -30,13 +30,12 @@ describe('App', () => {
       expect(cards).toHaveLength(52);
     });
   });
-  it('renders a Draw Card button that is disabled when the deck is empty', async () => {
+  it('disables the Draw Card button when the deck is empty', async () => {
     const screen = render(<App />);
     const drawButton = screen.getByRole('button', { name: /Draw Card/i });
-    expect(drawButton).toBeInTheDocument();
-    [...Array(52).keys()].forEach(i => {
+    [...Array(52).keys()].forEach((i) => {
       fireEvent.click(drawButton);
-    })
+    });
     expect(drawButton).toBeDisabled();
   });
   it('renders a Shuffle Deck button that can be clicked', async () => {
@@ -48,6 +47,15 @@ describe('App', () => {
     const cards = screen.getAllByRole('listitem');
     expect(cards).toHaveLength(52);
   });
+  it('disables the Shuffle Deck button when the deck is empty', async () => {
+    const screen = render(<App />);
+    const drawButton = screen.getByRole('button', { name: /Draw Card/i });
+    [...Array(52).keys()].forEach((i) => {
+      fireEvent.click(drawButton);
+    });
+    const shuffleButton = screen.getByRole('button', { name: /Shuffle Deck/i });
+    expect(shuffleButton).toBeDisabled();
+  });
   it('renders a Sort Hand button that can be clicked', async () => {
     const screen = render(<App />);
     const sortButton = screen.getByRole('button', { name: /Sort Hand/i });
@@ -56,5 +64,15 @@ describe('App', () => {
 
     const cards = screen.getAllByRole('listitem');
     expect(cards).toHaveLength(52);
+  });
+  it('disables the Sort Hand button until we draw a card', async () => {
+    const screen = render(<App />);
+    const sortButton = screen.getByRole('button', { name: /Sort Hand/i });
+    expect(sortButton).toBeDisabled();
+
+    const drawButton = screen.getByRole('button', { name: /Draw Card/i });
+    fireEvent.click(drawButton);
+
+    expect(sortButton).toBeEnabled();
   });
 });

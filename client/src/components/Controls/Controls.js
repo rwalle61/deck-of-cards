@@ -4,13 +4,14 @@ import Container from 'react-bootstrap/Container';
 import PropTypes from 'prop-types';
 import './Controls.css';
 
-const Controls = ({ onShuffle, onDraw, onSort, remainingDeckLength }) => {
+const Controls = ({ onShuffle, onDraw, onSort, deckLength, handLength }) => {
   const shuffleButton = (
     <Button
       className='btn Shuffle-btn'
       variant='outline-warning'
       size='lg'
       onClick={onShuffle}
+      disabled={deckLength < 1}
     >
       Shuffle Deck
     </Button>
@@ -22,7 +23,7 @@ const Controls = ({ onShuffle, onDraw, onSort, remainingDeckLength }) => {
       variant='outline-success'
       size='lg'
       onClick={onDraw}
-      disabled={remainingDeckLength < 1}
+      disabled={deckLength < 1}
     >
       Draw Card
     </Button>
@@ -34,6 +35,7 @@ const Controls = ({ onShuffle, onDraw, onSort, remainingDeckLength }) => {
       variant='outline-primary'
       size='lg'
       onClick={onSort}
+      disabled={handLength < 1}
     >
       Sort Hand
     </Button>

@@ -48,7 +48,8 @@ const App = () => {
           onDraw={onDraw}
           onShuffle={onShuffle}
           onSort={onSort}
-          remainingDeckLength={deck.length}
+          deckLength={deck.length}
+          handLength={hand.length}
         />
         <Hand hand={hand} />
       </header>

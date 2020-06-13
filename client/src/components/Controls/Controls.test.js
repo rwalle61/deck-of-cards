@@ -5,19 +5,19 @@ import Controls from '.';
 describe('<Controls />', () => {
   it('renders without crashing', () => {
     const wrapper = shallow(
-      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />
+      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />,
     );
     expect(wrapper).toHaveLength(1);
   });
   it('contains 3 buttons', () => {
     const wrapper = shallow(
-      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />
+      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />,
     );
     expect(wrapper.find('.btn')).toHaveLength(3);
   });
   it('matches the snapshot', () => {
     const wrapper = shallow(
-      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />
+      <Controls onShuffle={() => {}} onDraw={() => {}} onSort={() => {}} />,
     );
     expect(wrapper).toMatchInlineSnapshot(`
       <Container
@@ -63,7 +63,7 @@ describe('<Controls />', () => {
   it('has a shuffle button that can be clicked', () => {
     const onShuffle = jest.fn();
     const wrapper = shallow(
-      <Controls onShuffle={onShuffle} onDraw={() => {}} onSort={() => {}} />
+      <Controls onShuffle={onShuffle} onDraw={() => {}} onSort={() => {}} />,
     );
     wrapper.find('.Shuffle-btn').simulate('click');
     expect(onShuffle).toHaveBeenCalled();
