@@ -1,3 +1,7 @@
+:root {
+  --bootstrap-yellow: #ffc107;
+}
+
 li {
   list-style-type: none;
 }
@@ -18,7 +22,7 @@ li {
   display: flex;
   width: 1rem;
   height: 1.75rem;
-  background-color: goldenrod;
+  background-color: var(--bootstrap-yellow);
   border-radius: 0.15rem;
   border: 1px solid black;
   margin: 0.25rem;
