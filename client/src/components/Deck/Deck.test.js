@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Deck } from '.';
+import Deck from '.';
 
 describe('<Deck />', () => {
   it('renders without crashing', () => {

@@ -146,21 +146,17 @@ describe('e2e app test', () => {
             cy.get('.Deck').children()
                 .should('have.length', 0);
         });
-        it('draws no more cards and removes no cards from the deck when I have 52 cards in hand and click the \'draw\' button', () => {
+        it('disables the \'draw\' card button after I draw all 52 cards from the deck', () => {
             cy.get('.Hand').children()
                 .should('have.length', 0);
             cy.get('.Deck').children()
                 .should('have.length', 52);
 
-            for (let i = 0; i < (52 + 1); i++) {
+            for (let i = 0; i < 52; i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Hand').children()
-                .should('have.length', 52)
-                .then(childrenShouldContainOnlyUniqueCards);
-            cy.get('.Deck').children()
-                .should('have.length', 0);
+            cy.get('.Draw-btn').should('be.disabled');
         });
     });
     describe(c`Acceptance Criteria 3: I can draw any given number of cards from the deck

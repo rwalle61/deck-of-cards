@@ -1,17 +1,10 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import shuffleArray from 'shuffle-array';
 import PropTypes from 'prop-types';
 import './Controls.css';
 
-const shuffleDeck = (deck) => {
-  const deckClone = [...deck];
-  shuffleArray(deckClone);
-  return deckClone;
-};
-
-const Controls = ({ onShuffle, onDraw, onSort }) => {
+const Controls = ({ onShuffle, onDraw, onSort, remainingDeckLength }) => {
   const shuffleButton = (
     <Button
       className='btn Shuffle-btn'
@@ -29,6 +22,7 @@ const Controls = ({ onShuffle, onDraw, onSort }) => {
       variant='outline-success'
       size='lg'
       onClick={onDraw}
+      disabled={remainingDeckLength < 1}
     >
       Draw Card
     </Button>
@@ -60,4 +54,4 @@ Controls.propTypes = {
   onSort: PropTypes.func.isRequired,
 };
 
-export { Controls, shuffleDeck };
+export default Controls;
