@@ -4,11 +4,17 @@ extends:
   - plugin:import/errors
   - plugin:import/warnings
   - plugin:cypress/recommended
+  - plugin:flowtype/recommended
+  - plugin:testing-library/recommended
+  - plugin:jest-dom/recommended
 
 plugins:
   - mocha
   - chai-friendly
   - cypress
+  - flowtype
+  - testing-library
+  - jest-dom
 
 env:
   node: true
@@ -60,5 +66,5 @@ rules:
   mocha/max-top-level-suites:
     - warn
     - limit: 1
-  no-unused-expressions: 'off'
+  no-unused-expressions: "off"
   chai-friendly/no-unused-expressions: error

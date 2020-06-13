@@ -24,7 +24,8 @@ describe('e2e app test', () => {
             .should('contain', 'Draw Card');
         cy.get('.Sort-btn')
             .should('exist')
-            .should('contain', 'Sort Hand');
+            .should('contain', 'Sort Hand')
+            .should('be.disabled');
 
         cy.get('.Hand').children()
             .should('have.length', 0);
@@ -146,26 +147,23 @@ describe('e2e app test', () => {
             cy.get('.Deck').children()
                 .should('have.length', 0);
         });
-        it('draws no more cards and removes no cards from the deck when I have 52 cards in hand and click the \'draw\' button', () => {
+        it('disables the \'draw\' and \'shuffle\' buttons after I draw all 52 cards from the deck', () => {
             cy.get('.Hand').children()
                 .should('have.length', 0);
             cy.get('.Deck').children()
                 .should('have.length', 52);
 
-            for (let i = 0; i < (52 + 1); i++) {
+            for (let i = 0; i < 52; i++) {
                 cy.get('.Draw-btn').click();
             }
 
-            cy.get('.Hand').children()
-                .should('have.length', 52)
-                .then(childrenShouldContainOnlyUniqueCards);
-            cy.get('.Deck').children()
-                .should('have.length', 0);
+            cy.get('.Draw-btn').should('be.disabled');
+            cy.get('.Shuffle-btn').should('be.disabled');
         });
     });
     describe(c`Acceptance Criteria 3: I can draw any given number of cards from the deck
         and then sort the drawn cards, with the cards being removed from the original deck.
-        Also, Acceptance Criteria 4: Sorted cards are sorted by suit: Clubs, Spades, Hearts, Diamonds;
+        \n\nAnd Acceptance Criteria 4: Sorted cards are sorted by suit: Clubs, Spades, Hearts, Diamonds;
         then by value: Ace is high.`, () => {
         it('sorts my hand when I click the \'sort\' button (after drawing cards from a shuffled deck)', () => {
             cy.get('.Hand').children()

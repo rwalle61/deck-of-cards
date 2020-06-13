@@ -7,29 +7,29 @@ const suitIDToIcon = {
   S: '♠︎',
   H: '♥︎',
   D: '♦︎',
-}
+};
 
 const suitIDToColour = {
   C: 'black',
   S: 'black',
   H: 'red',
   D: 'red',
-}
+};
 
 const CardFront = (id, colour, suitIcon, value) => (
   <div id={id} className={`card card-${colour}`}>
-    <div className="card-topleft">
-      <div className="card-value">{value}</div>
-      <div className="card-suit">{suitIcon}</div>
+    <div className='card-topleft'>
+      <div className='card-value'>{value}</div>
+      <div className='card-suit'>{suitIcon}</div>
     </div>
-    <div className="card-bottomright">
-      <div className="card-value">{value}</div>
-      <div className="card-suit">{suitIcon}</div>
+    <div className='card-bottomright'>
+      <div className='card-value'>{value}</div>
+      <div className='card-suit'>{suitIcon}</div>
     </div>
   </div>
 );
 
-const CardBack = (id) => <div id={id} className="card-back"></div>;
+const CardBack = (id) => <div id={id} className='card-back'></div>;
 
 const Card = ({ id, showBack }) => {
   if (showBack) {
@@ -45,6 +45,6 @@ const Card = ({ id, showBack }) => {
 Card.propTypes = {
   id: PropTypes.string.isRequired,
   showBack: PropTypes.bool,
-}
+};
 
 export default Card;
