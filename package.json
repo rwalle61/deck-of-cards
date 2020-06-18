@@ -47,7 +47,7 @@
     "eslint-plugin-mocha": "^6.3.0",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
-    "eslint-plugin-testing-library": "^3.3.0",
+    "eslint-plugin-testing-library": "^3.3.1",
     "husky": "^4.2.5",
     "start-server-and-test": "^1.11.0"
   },
